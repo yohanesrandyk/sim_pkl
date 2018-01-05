@@ -17,9 +17,7 @@ Route::get('/', function () {
     return "Selamat Datang";
 });
 
-Route::get('/home', function () {
-    return view('layout.wrapper');
-});
+Route::get('/home', 'HomeController@index');
 
 Route::get('bidangperusahaan','BidangPerusahaanController@index');
 Route::get('bidangperusahaan/destroy/{id}','BidangPerusahaanController@destroy')->name('bidangperusahaan.destroy');
