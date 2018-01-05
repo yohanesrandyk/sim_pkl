@@ -10,5 +10,5 @@ class Kehadiran extends Model
 
     protected $table="kehadiran";
     public $timestamps = false;
-    protected $fillable=["id","divisi","datang","pulang","keterangan", "ttd"];
+    protected $fillable=["id","divisi","datang","pulang","ket", "paraf"];
 }

@@ -7,7 +7,7 @@
           </div>
           <div class="ibox-content">
             <div class="table-responsive">
-              <table class="table table-striped table-bordered table-hover dataTables-example" >
+              <table class="table table-striped table-hover dataTables-example">
                 <thead>
                   <tr>
                     <th rowspan="2">Hari Ke-</th>
@@ -21,12 +21,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                  </tr>
+                  @foreach ($kehadiran as $data)
+                    <tr>
+                      <td>{{$data->id_kehadiran}}</td>
+                      <td>{{$data->datang}}</td>
+                      <td>{{$data->pulang}}</td>
+                      <td>@if ($data->paraf == "0") Tidak @else Ya @endif</td>
+                      <td>{{$data->ket}}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
+            <a href="kehadiran/add" class="btn btn-primary" @if ($today > 0) disabled @endif>Absen Hari Ini</a>
           </div>
         </div>
       </div>

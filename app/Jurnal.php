@@ -10,5 +10,5 @@ class Jurnal extends Model
 
     protected $table="jurnal";
     public $timestamps = false;
-    protected $fillable=["id","divisi","waktu","bentuk_kegiatan","hasil_pencapaian","keterangan", "ttd"];
+    protected $fillable=["id","divisi","waktu","bentuk_kegiatan","hasil_pencapaian","keterangan", "paraf"];
 }

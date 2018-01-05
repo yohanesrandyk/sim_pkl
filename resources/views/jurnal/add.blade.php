@@ -15,6 +15,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Waktu</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="mulai" required>
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="selesai" required>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Bentuk Kegiatan *</label>
                 <div class="col-sm-10">
                     <textarea name="bentuk_kegiatan" class="form-control required"></textarea>
@@ -32,6 +41,7 @@
                     <textarea name="ket" class="form-control"></textarea>
                 </div>
             </div>
+            <input type="submit" class="btn btn-primary" name="submit" value="Save">
           </form>
         </div>
       </div>

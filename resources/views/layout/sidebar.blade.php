@@ -8,10 +8,10 @@
                   </span>
                   <a href="">
                       <span class="clear"> <span class="block m-t-xs">
-                        <strong class="font-bold">Silvi</strong>
+                        <strong class="font-bold">{{Auth::user()->username}}</strong>
                       </span>
                       <span class="text-muted text-xs block">
-                        BKK Wikrama
+                        @if (Auth::user()->id_role == "3") Siswa @else User @endif
                       </span>
                     </span>
                   </a>
@@ -41,6 +41,9 @@
             </li>
             <li>
                 <a href="{{url('penempatan')}}"><i class="fa fa-map-marker"></i><span class="nav-label">Penempatan</span></a>
+            </li>
+            <li>
+                <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span></a>
             </li>
         </ul>
     </div>

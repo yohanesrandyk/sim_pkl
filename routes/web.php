@@ -50,5 +50,9 @@ Route::get('penempatan/add/{id}','PenempatanController@create');
 Route::post('penempatan/add/{id}', 'PenempatanController@store');
 
 Route::get('jurnal', 'JurnalController@index');
+Route::get('jurnal/add', 'JurnalController@create');
+Route::post('jurnal/add', 'JurnalController@store');
 
 Route::get('kehadiran', 'KehadiranController@index');
+Route::get('kehadiran/add', 'KehadiranController@create');
+Route::post('kehadiran/add', 'KehadiranController@store');

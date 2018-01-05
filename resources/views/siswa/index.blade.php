@@ -36,8 +36,8 @@
               </tbody>
             </table>
           </div>
+          <a href="siswa/add" class="btn btn-primary">Add</a>
         </div>
       </div>
     </div>
-    <a href="siswa/add" class="btn btn-primary">Add</a>
 @endsection
