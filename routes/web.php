@@ -14,6 +14,10 @@
 Auth::routes();
 
 Route::get('/', function () {
+    return "Selamat Datang";
+});
+
+Route::get('/home', function () {
     return view('layout.wrapper');
 });
 
