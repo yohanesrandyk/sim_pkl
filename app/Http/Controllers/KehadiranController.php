@@ -34,7 +34,12 @@ class KehadiranController extends Controller
         return view("kehadiran.index", ["kehadiran"=>$kehadiran, "today" => $today]);
     }
     public function create(){
-      return view("kehadiran.add");
+      $today = count(Kehadiran::where('created_at', 'like' , '%'.date("Y-m-d").'%')->get());
+      if ($today > 0) {
+        return redirect('kehadiran');
+      }else{
+        return view("kehadiran.add");
+      }
     }
     public function store(Request $req){
       Kehadiran::create([
