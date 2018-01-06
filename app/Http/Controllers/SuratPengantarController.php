@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Session;
 
+use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Perusahaan;
-use App\BidangPerusahaan;
-class PerusahaanController extends Controller
+use App\Surat;
+class SuratPengantarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class PerusahaanController extends Controller
     public function index()
     {
         //
-        $data=Perusahaan::OrderBy('status','asc')->get();
-        return view('perusahaan.index',compact('data'));
+        $data = Surat::where('id_typesurat','4')->get();
+        return  view('surat.suratpengantar.index',compact('data'));
     }
 
     /**
@@ -28,8 +29,8 @@ class PerusahaanController extends Controller
     public function create()
     {
         //
-        $data_bidang = BidangPerusahaan::OrderBy('bidangperusahaan','asc')->get();
-        return view('perusahaan.add',compact('data_bidang'));
+        $perusahaan = Perusahaan::Where('status','1')->orderBy('perusahaan')->get();
+        return view('surat.suratpengantar.add',compact('perusahaan'));
     }
 
     /**
@@ -41,21 +42,27 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         //
-        $data = new Perusahaan;
+        $surat = Surat::OrderBy('id_surat','dec')->limit(1)->first();
+        $perusahaan = Perusahaan::Where('status','1')->orderBy('perusahaan')->get();
 
-        $data->id_bidang = $request->id_bidang;
-        $data->perusahaan = $request->namaperusahaan;
-        $data->kota = $request->kota;
-        $data->alamat = $request->alamat;
-        $data->kode_pos = $request->kodepos;
-        $data->telp = $request->telepon;
-        $data->website = $request->website;
-        $data->email = $request->email;
-        $data->status = $request->status;
+        if (count($surat)<>0) {
+            $nosurat = $surat->nomersurat+1;    
+        }else{
+            $nosurat=1;
+        }
+
+        $data = new Surat;
+        $data->id_typesurat='4';
+        $data->id_perusahaan=$request->perusahaan;
+        $data->nomersurat=$nosurat;
+        $data->tgl_keluar=$request->tanggalkeluar;
+        $data->isi= $request->wm.";".
+                    $request->ws.";".
+                    $request->ks;
         $data->save();
         Session::flash('message', 'Data Berhasil Disimpan'); 
         Session::flash('alert-class', 'alert-success'); 
-        return redirect(url('/perusahaan'));
+        return redirect(url('/suratpengantar'));
     }
 
     /**
@@ -67,6 +74,8 @@ class PerusahaanController extends Controller
     public function show($id)
     {
         //
+        // $r = Surat::find(decrypt($id));
+        // return view('surat.suratpengantar.print',compact('r'));
     }
 
     /**
@@ -78,9 +87,9 @@ class PerusahaanController extends Controller
     public function edit($id)
     {
         //
-        $data_bidang = BidangPerusahaan::OrderBy('bidangperusahaan','asc')->get();
-        $r = Perusahaan::find($id);
-        return view('perusahaan.edit',compact('r','data_bidang'));
+        $r = Surat::find(decrypt($id));
+        $perusahaan = Perusahaan::Where('status','1')->orderBy('perusahaan')->get();
+        return view('surat.suratpengantar.edit',compact('r','perusahaan'));
     }
 
     /**
@@ -93,21 +102,17 @@ class PerusahaanController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $data = Perusahaan::find($id);
+        $data = Surat::find(decrypt($id));
+        $data->id_perusahaan=$request->input('perusahaan');
+        $data->tgl_keluar=$request->input('tanggalkeluar');
+        $data->isi= $request->wm.";".
+                    $request->ws.";".
+                    $request->ks;
 
-        $data->id_bidang = $request->input('id_bidang');
-        $data->perusahaan = $request->input('namaperusahaan');
-        $data->kota = $request->input('kota');
-        $data->alamat = $request->input('alamat');
-        $data->kode_pos = $request->input('kodepos');
-        $data->telp = $request->input('telepon');
-        $data->website = $request->input('website');
-        $data->email = $request->input('email');
-        $data->status = $request->input('status');
         $data->update();
         Session::flash('message', 'Data Berhasil Diupdate'); 
         Session::flash('alert-class', 'alert-info'); 
-        return redirect(url('/perusahaan'));
+        return redirect(url('/suratpengantar'));
     }
 
     /**
@@ -119,12 +124,10 @@ class PerusahaanController extends Controller
     public function destroy($id)
     {
         //
-        $data = Perusahaan::find($id);
+        $data = Surat::find(decrypt($id));
         $data->delete();
         Session::flash('message', 'Data Berhasil Dihapus'); 
         Session::flash('alert-class', 'alert-danger'); 
-        return redirect(url('/perusahaan'));
+        return redirect(url('/suratpengantar'));
     }
 }
-
-
