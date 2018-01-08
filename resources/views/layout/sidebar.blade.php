@@ -43,7 +43,7 @@
                 <a href="{{url('penempatan')}}"><i class="fa fa-map-marker"></i><span class="nav-label">Penempatan</span></a>
             </li>
             <li>
-                <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span></a>
+                <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span>@if(Session::has('status_absen')) {{ Session::get('status_absen') }} @endif</a>
             </li>
         </ul>
     </div>

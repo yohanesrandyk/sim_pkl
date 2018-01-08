@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>SIM |  PKL</title>
+    <title>{{$SessionVar}}</title>
     <link href="{{asset('css/bootstrap.min.css')}} "rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/animate.css')}} "rel="stylesheet">
@@ -16,6 +16,7 @@
 
     <link href="{{asset('css/plugins/select2/select2.min.css')}} "rel="stylesheet">
     <link href="{{asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-notifications.min.css">
 
   </head>
   <body class="pace-done">
@@ -66,10 +67,19 @@
                     calendarWeeks: true,
                     autoclose: true
                 });
+
+                setInterval(function () {
+                  let d = new Date();
+                  let n = d.getHours();
+                  if(n == 23){
+                    document.getElementById('check_absen').click();
+                  }
+                }, 360000);
             });
 
 
         </script>
-
+{{Session::flash('route_last', Request::path())}}
+<a href="{{ url('check_absen') }}" id="check_absen" style="display:none"></a>
   </body>
 </html>

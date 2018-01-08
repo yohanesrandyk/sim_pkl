@@ -13,6 +13,22 @@
 
 Auth::routes();
 
+// Route::get('notify', function () {
+//   event(new App\Events\StatusLiked('Someone'));
+//   return "Event has been sent!";
+// });
+//
+// Route::get('notif', function () {
+//   return view('notify');
+// });
+
+// App::before(function($request)
+// {
+//   View::share('session', );
+// });
+
+Route::get('check_absen','CommonController@status_absen');
+
 Route::get('/', function () {
     return "Selamat Datang";
 });

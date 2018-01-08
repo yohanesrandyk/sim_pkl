@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Kehadiran;
+use Session;
 
-class HomeController extends Controller
+class CommonController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +25,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function status_absen()
     {
-      return view('layout.wrapper');
+      $status = Kehadiran::where('created_at', 'like', 'now')->get();
+      if(count($status) < 1){
+        Session::flash('status_absen', '1');
+      }
+      return redirect(Session::get('route_last'));
     }
 }
