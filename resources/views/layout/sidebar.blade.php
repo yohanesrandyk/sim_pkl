@@ -45,6 +45,9 @@
             <li>
                 <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span>@if(Session::has('status_absen')) {{ Session::get('status_absen') }} @endif</a>
             </li>
+            <li>
+                <a href="{{url('jurnal')}}"><i class="fa fa-edit"></i><span class="nav-label">Jurnal</span></a>
+            </li>
         </ul>
     </div>
 </nav>

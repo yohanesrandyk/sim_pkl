@@ -74,3 +74,9 @@ Route::post('jurnal/add', 'JurnalController@store');
 Route::get('kehadiran', 'KehadiranController@index');
 Route::get('kehadiran/add', 'KehadiranController@create');
 Route::post('kehadiran/add', 'KehadiranController@store');
+
+Route::get('/logout', function()
+{
+  Auth::logout();
+  return redirect('login');
+});
