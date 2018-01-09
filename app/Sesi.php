@@ -8,6 +8,6 @@ class Sesi extends Model
 {
     //
 
-    protected $table="Session";
-    protected $fillable=["nama","isi","status"];
+    protected $table="session";
+    protected $fillable=["id","nama_sesi","isi","status"];
 }

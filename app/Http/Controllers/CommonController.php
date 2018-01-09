@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Kehadiran;
+use App\Sesi;
 use Session;
 
 class CommonController extends Controller
@@ -27,9 +28,15 @@ class CommonController extends Controller
      */
     public function status_absen()
     {
-      $status = Kehadiran::where('created_at', 'like', 'now')->get();
+
+      $status = Kehadiran::where('created_at', 'like', '%'.date("Y-m-d").'%')->get();
       if(count($status) < 1){
-        Session::flash('status_absen', '1');
+        Sesi::create([
+          "id" => "2",
+          "nama_sesi" => "absen",
+          "isi" => "1",
+          "status" => "0",
+        ]);
       }
       return redirect(Session::get('route_last'));
     }

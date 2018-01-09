@@ -9,7 +9,11 @@ class SessionComposer
 {
     public function compose(View $view)
     {
-      $session = Sesi::all();
-      $view->with('SessionVar', "1");
+      $session = [];
+      $absen = Sesi::where([["nama_sesi", "absen"],["status", "0"]])->first();
+      if(count($absen) > 0){
+          array_push($session, $absen->isi);
+      }
+      $view->with('SessionVar', $session);
     }
 }

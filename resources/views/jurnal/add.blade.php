@@ -17,10 +17,10 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Waktu</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="mulai" required>
+                    <input type="time" class="form-control" name="mulai">
                 </div>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="selesai" required>
+                    <input type="time" class="form-control" name="selesai">
                 </div>
             </div>
             <div class="form-group">

@@ -37,13 +37,15 @@ class JurnalController extends Controller
     }
     public function store(Request $req){
       Jurnal::create([
-        "id" => "",
+        "id" => "3",
         "divisi" => $req->divisi,
+        "mulai" => $req->mulai,
+        "selesai" => $req->selesai,
         "bentuk_kegiatan" => $req->bentuk_kegiatan,
         "hasil_pencapaian" => $req->hasil_pencapaian,
         "ket" => $req->ket,
       ]);
-      return redirect("user");
+      return redirect("jurnal");
     }
     // public function edit($id){
     //   $user = User::where("id", $id)->first();

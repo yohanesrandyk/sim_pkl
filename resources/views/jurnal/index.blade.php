@@ -37,6 +37,7 @@
                 </tbody>
               </table>
             </div>
+            <a href="jurnal/add" class="btn btn-primary">Isi jurnal hari ini</a>
           </div>
         </div>
       </div>

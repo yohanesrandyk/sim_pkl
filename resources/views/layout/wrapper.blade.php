@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{$SessionVar}}</title>
+    <title>SIM | PKL</title>
     <link href="{{asset('css/bootstrap.min.css')}} "rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/animate.css')}} "rel="stylesheet">
@@ -71,7 +71,7 @@
                 setInterval(function () {
                   let d = new Date();
                   let n = d.getHours();
-                  if(n == 23){
+                  if(n == 16){
                     document.getElementById('check_absen').click();
                   }
                 }, 360000);
@@ -80,6 +80,6 @@
 
         </script>
 {{Session::flash('route_last', Request::path())}}
-<a href="{{ url('check_absen') }}" id="check_absen" style="display:none"></a>
+<a href="{{ url('check_absen') }}" id="check_absen">aaaaa</a>
   </body>
 </html>
