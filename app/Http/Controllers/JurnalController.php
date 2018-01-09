@@ -29,15 +29,21 @@ class JurnalController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        // Auth::user()->id;
-        return view("jurnal.index");
+        $jurnal = Jurnal::all();
+        $today = count(Jurnal::where('created_at', 'like' , '%'.date("Y-m-d").'%')->get());
+        return view("jurnal.index", ["jurnal" => $jurnal, "today" => $today]);
     }
     public function create(){
-      return view("jurnal.add");
+      $today = count(Jurnal::where('created_at', 'like' , '%'.date("Y-m-d").'%')->get());
+      if ($today > 0) {
+        return redirect('jurnal');
+      }else{
+        return view("jurnal.add");
+      }
     }
     public function store(Request $req){
       Jurnal::create([
-        "id" => "3",
+        "id" => "2",
         "divisi" => $req->divisi,
         "mulai" => $req->mulai,
         "selesai" => $req->selesai,

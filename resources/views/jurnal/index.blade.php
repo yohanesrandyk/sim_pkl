@@ -24,20 +24,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @if (count($jurnal)>0)
+                    @foreach ($jurnal as $data)
+                      <tr>
+                        <td>{{$data->divisi}}</td>
+                        <td>{{$data->created_at}}</td>
+                        <td>{{$data->mulai}}</td>
+                        <td>{{$data->selesai}}</td>
+                        <td>{{$data->bentuk_kegiatan}}</td>
+                        <td>{{$data->hasil_pencapaian}}</td>
+                        <td>{{$data->ket}}</td>
+                        <td>@if ($data->paraf == "0") Tidak @else Ya @endif</td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
-            <a href="jurnal/add" class="btn btn-primary">Isi jurnal hari ini</a>
+            <a href="jurnal/add" class="btn btn-primary" @if ($today > 0) disabled @endif>Isi jurnal hari ini</a>
           </div>
         </div>
       </div>
