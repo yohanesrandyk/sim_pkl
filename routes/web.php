@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\BidangPerusahaanController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\PenempatanController;
+use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SuratController;
+use App\Http\Controllers\SuratPengantarController;
+use App\Http\Controllers\SuratPermohonanController;
+use App\Http\Controllers\SuratTugasController;
+use App\Http\Controllers\UserController;
 /*
 |---------------------------------------------------------------------|-----
 | Web Routes
@@ -30,49 +42,192 @@ Auth::routes();
 Route::get('check_absen','CommonController@status_absen');
 
 Route::get('/', function () {
-    return "Selamat Datang";
+    if(Auth::user()){
+      return redirect('perusahaan');
+    }else{
+      return redirect('login');
+    }
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('home', function () {
+    if(Auth::user()){
+      return view('layout.wrapper');
+    }else{
+      return redirect('login');
+    }
+});
 
-Route::get('bidangperusahaan','BidangPerusahaanController@index');
-Route::get('bidangperusahaan/destroy/{id}','BidangPerusahaanController@destroy')->name('bidangperusahaan.destroy');
+Route::get('bidangperusahaan', function(){
+  if(Auth::user()->id_role==1){
+    return (new BidangPerusahaanController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('bidangperusahaan/destroy/{id}', function($id){
+  if(Auth::user()->id_role==1){
+    return (new BidangPerusahaanController)->destroy($id);
+  }else{
+    return view('404');
+  }
+})->name('bidangperusahaan.destroy');
 
-Route::get('perusahaan','PerusahaanController@index');
-Route::get('perusahaan/add','PerusahaanController@create');
-Route::get('perusahaan/del/{id}','PerusahaanController@destroy');
+Route::get('perusahaan', function(){
+  if(Auth::user()->id_role==1){
+    return (new PerusahaanController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('perusahaan/add',function(){
+  if(Auth::user()->id_role==1){
+    return (new PerusahaanController)->create();
+  }else{
+    return view('404');
+  }
+});
+Route::get('perusahaan/del/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new PerusahaanController)->destroy($id);
+  }else{
+    return view('404');
+  }
+});
 Route::post('perusahaan/add','PerusahaanController@store');
-Route::get('perusahaan/e/{id}','PerusahaanController@edit');
+Route::get('perusahaan/e/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new PerusahaanController)->edit($id);
+  }else{
+    return view('404');
+  }
+});
 Route::post('perusahaan/e/{id}','PerusahaanController@update');
 
 
-Route::get('suratpermohonan','SuratController@index');
-Route::get('suratpermohonan/add','SuratController@create');
+Route::get('suratpermohonan',function(){
+  if(Auth::user()->id_role==1){
+    return (new SuratController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('suratpermohonan/add',function(){
+  if(Auth::user()->id_role==1){
+    return (new SuratController)->create();
+  }else{
+    return view('404');
+  }
+});
 
-Route::get('siswa', 'SiswaController@index');
-Route::get('siswa/add', 'SiswaController@create');
+Route::get('siswa', function(){
+  if(Auth::user()->id_role==1){
+    return (new SiswaController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('siswa/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new SiswaController)->create();
+  }else{
+    return view('404');
+  }
+});
 Route::post('siswa/add', 'SiswaController@store');
-Route::get('siswa/e/{id}','SiswaController@edit');
+Route::get('siswa/e/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new SiswaController)->edit($id);
+  }else{
+    return view('404');
+  }
+});
 Route::post('siswa/e/{id}','SiswaController@update');
-Route::get('siswa/del/{id}','SiswaController@destroy');
+Route::get('siswa/del/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new SiswaController)->destroy($id);
+  }else{
+    return view('404');
+  }
+});
 
-Route::get('user', 'UserController@index');
-Route::get('user/add', 'UserController@create');
+
+Route::get('user', function(){
+  if(Auth::user()->id_role==1){
+    return (new UserController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('user/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new UserController)->create();
+  }else{
+    return view('404');
+  }
+});
 Route::post('user/add', 'UserController@store');
-Route::get('user/e/{id}','UserController@edit');
+Route::get('user/e/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new UserController)->edit($id);
+  }else{
+    return view('404');
+  }
+});
 Route::post('user/e/{id}','UserController@update');
-Route::get('user/del/{id}','UserController@destroy');
+Route::get('user/del/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new UserController)->destroy($id);
+  }else{
+    return view('404');
+  }
+});
 
-Route::get('penempatan', 'PenempatanController@index');
-Route::get('penempatan/add/{id}','PenempatanController@create');
+Route::get('penempatan', function(){
+  if(Auth::user()->id_role==1){
+    return (new PenempatanController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('penempatan/add/{id}',function($id){
+  if(Auth::user()->id_role==1){
+    return (new PenempatanController)->create($id);
+  }else{
+    return view('404');
+  }
+});
 Route::post('penempatan/add/{id}', 'PenempatanController@store');
 
-Route::get('jurnal', 'JurnalController@index');
-Route::get('jurnal/add', 'JurnalController@create');
+Route::get('jurnal', function(){
+  if(Auth::user()->id_role==3){
+    return (new JurnalController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('jurnal/add', function(){
+  if(Auth::user()->id_role==3){
+    return (new JurnalController)->create();
+  }else{
+    return view('404');
+  }
+});
 Route::post('jurnal/add', 'JurnalController@store');
 
-Route::get('kehadiran', 'KehadiranController@index');
-Route::get('kehadiran/add', 'KehadiranController@create');
+Route::get('kehadiran', function(){
+  if(Auth::user()->id_role==3){
+    return (new KehadiranController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('kehadiran/add', function(){
+  if(Auth::user()->id_role==3){
+    return (new KehadiranController)->create();
+  }else{
+    return view('404');
+  }
+});
 Route::post('kehadiran/add', 'KehadiranController@store');
 
 Route::get('/logout', function()

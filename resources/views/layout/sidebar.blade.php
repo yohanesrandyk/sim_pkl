@@ -20,6 +20,7 @@
                     SP
                 </div>
             </li>
+            @if (Auth::user()->id_role == 1)
             <li>
                 <a href="{{url('perusahaan')}}"><i class="fa fa-building-o"></i><span class="nav-label">Perusahaan</span></a>
             </li>
@@ -42,12 +43,14 @@
             <li>
                 <a href="{{url('penempatan')}}"><i class="fa fa-map-marker"></i><span class="nav-label">Penempatan</span></a>
             </li>
+          @elseif (Auth::user()->id_role == 3)
             <li>
                 <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran @if (isset($SessionVar[0])){{$SessionVar[0]}}@endif</span></a>
             </li>
             <li>
                 <a href="{{url('jurnal')}}"><i class="fa fa-edit"></i><span class="nav-label">Jurnal</span></a>
             </li>
+            @endif
         </ul>
     </div>
 </nav>
