@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2018 at 05:22 
+-- Generation Time: Jan 16, 2018 at 05:40 
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -245,8 +245,9 @@ CREATE TABLE `questioner` (
 
 CREATE TABLE `rayon` (
   `id_rayon` int(11) NOT NULL,
-  `id` int(11) UNSIGNED DEFAULT NULL,
-  `rayon` int(11) DEFAULT NULL
+  `rayon` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -316,7 +317,7 @@ INSERT INTO `session` (`id_session`, `id`, `nama_sesi`, `isi`, `status`, `create
 CREATE TABLE `siswa` (
   `nis` int(8) NOT NULL,
   `id` int(11) UNSIGNED NOT NULL,
-  `id_area` int(11) NOT NULL,
+  `id_area` int(11) DEFAULT '0',
   `id_rayon` int(2) DEFAULT NULL,
   `id_jurusan` int(1) DEFAULT NULL,
   `id_rombel` int(3) DEFAULT NULL,
@@ -331,6 +332,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`nis`, `id`, `id_area`, `id_rayon`, `id_jurusan`, `id_rombel`, `agama`, `jk`, `id_perusahaan`, `status_perusahaan`) VALUES
+(11504840, 15, 1, NULL, NULL, NULL, 'Islam', 'L', NULL, NULL),
 (11505277, 2, 1, NULL, NULL, NULL, 'Christian', 'L', 5, 1);
 
 -- --------------------------------------------------------
@@ -392,8 +394,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_role`, `username`, `nama`, `password`, `email`, `remember_token`, `telp`, `bop`, `bod`, `alamat`, `status`, `created_at`, `updated_at`) VALUES
-(2, 3, 'Yohanes', 'Yohanes Randy K', '$2y$10$UOMcgsK3is/gBb65tN5hY.kuEskW0PbWuxEOClOMNADbo7FA.tGPm', 'randykurniayanto@gmail.com', 'QaDKTxEYotIDeLz2cNgcDHolfYsgwyHYOOa9KFv2OkmIO6BK5XH9oBV7m8Ee', '083811201424', NULL, '2016-07-06', 'Cipaku, Bogor Selatan', 2, '2017-12-18 06:51:41', '2018-01-15 21:18:24'),
-(9, 1, 'Silvi', 'Silvi', '$2y$10$1NlN50ZYrY7zaAjtpMu3FuHdqxUy0WktntoV6M01Jms/Qx.l8NNMK', 'silvi@gmail.com', '7kd09jhA97jfVNf7mkW0aZcNDJnRaEdaWPfeWqcw2aLOd7v04xFAN3tnRFiK', '08000000', 'Indonesia', '0001-01-01', 'Indonesia', 0, '2017-12-29 22:01:11', '2018-01-16 03:51:26');
+(2, 3, 'Yohanes', 'Yohanes Randy K', '$2y$10$UOMcgsK3is/gBb65tN5hY.kuEskW0PbWuxEOClOMNADbo7FA.tGPm', 'randykurniayanto@gmail.com', 'NNDYoR8jMvcIzNaMOgFTb5gUuS33cfnzubYeh0t927UKNYzVjWdli1oJLI8R', '083811201424', NULL, '2016-07-06', 'Cipaku, Bogor Selatan', 2, '2017-12-18 06:51:41', '2018-01-16 04:30:31'),
+(9, 1, 'Silvi', 'Silvi', '$2y$10$1NlN50ZYrY7zaAjtpMu3FuHdqxUy0WktntoV6M01Jms/Qx.l8NNMK', 'silvi@gmail.com', 'RZm40uoyDfXRDoNvcuiaUI1yDjyPjUGqdofBWmH67zrXHkwV1OD5hZZS6mjn', '08000000', 'Indonesia', '0001-01-01', 'Indonesia', 0, '2017-12-29 22:01:11', '2018-01-16 04:38:15'),
+(15, 3, 'dick', 'Dicki Fadilah Fajar', '$2y$10$ipFJ9XBRNRixRt4o6kMRquIMLWK.lZRHV3OIclQ6XLUc8viMe2gpW', 'dicki@gmail.com', NULL, '083811201424', 'Bogor', '2000-11-02', 'Bogor', 2, '2018-01-15 21:38:12', '2018-01-15 21:38:51');
 
 --
 -- Indexes for dumped tables
@@ -479,8 +482,7 @@ ALTER TABLE `questioner`
 -- Indexes for table `rayon`
 --
 ALTER TABLE `rayon`
-  ADD PRIMARY KEY (`id_rayon`),
-  ADD KEY `fk_inv_rayon` (`id`);
+  ADD PRIMARY KEY (`id_rayon`);
 
 --
 -- Indexes for table `role`
@@ -619,7 +621,7 @@ ALTER TABLE `type_surat`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Constraints for dumped tables
 --
@@ -673,12 +675,6 @@ ALTER TABLE `perusahaan`
 --
 ALTER TABLE `questioner`
   ADD CONSTRAINT `questioner_ibfk_1` FOREIGN KEY (`id_perusahaan`) REFERENCES `perusahaan` (`id_perusahaan`) ON DELETE CASCADE;
-
---
--- Constraints for table `rayon`
---
-ALTER TABLE `rayon`
-  ADD CONSTRAINT `fk_inv_rayon` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `session`

@@ -81,7 +81,7 @@ class SiswaController extends Controller
       ]);
       User::create([
         "id_role" => "3",
-        "username" => $req->nama,
+        "username" => $req->username,
         "password" => bcrypt($req->password),
         "nama" => $req->nama,
         "email" => $req->email,

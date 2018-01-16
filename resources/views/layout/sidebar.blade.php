@@ -8,7 +8,7 @@
                   </span>
                   <a href="">
                       <span class="clear"> <span class="block m-t-xs">
-                        <strong class="font-bold">{{Auth::user()->username}}</strong>
+                        <strong class="font-bold">{{Auth::user()->nama}}</strong>
                       </span>
                       <span class="text-muted text-xs block">
                         @if (Auth::user()->id_role == "3") Siswa @else User @endif
