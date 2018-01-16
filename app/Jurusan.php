@@ -10,5 +10,5 @@ class Jurusan extends Model
     protected $table="jurusan";
     protected $primaryKey="id_jurusan";
     protected $fillable=["jurusan","singkatan"];
-    
+
 }

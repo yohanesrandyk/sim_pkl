@@ -29,6 +29,7 @@
                       <td>@if ($data->paraf == "0") Tidak @else Ya @endif</td>
                       <td>{{$data->ket}}</td>
                       {{-- <td><input type="checkbox" name="" value="" @if ($data->paraf == "1") checked readonly @endif></td> --}}
+                      <td>{{$data->ket}}</td>
                     </tr>
                   @endforeach
                 </tbody>
