@@ -12,6 +12,8 @@ use App\Http\Controllers\SuratPengantarController;
 use App\Http\Controllers\SuratPermohonanController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |---------------------------------------------------------------------|-----
 | Web Routes
@@ -29,7 +31,7 @@ Auth::routes();
 //   event(new App\Events\StatusLiked('Someone'));
 //   return "Event has been sent!";
 // });
-//
+
 // Route::get('notif', function () {
 //   return view('notify');
 // });
@@ -43,15 +45,17 @@ Route::get('check_absen','CommonController@status_absen');
 
 Route::get('/', function () {
     if(Auth::user()){
-      return redirect('perusahaan');
+      return redirect('home');
     }else{
       return redirect('login');
     }
 });
 
+// Route::get('home','DashboardController@index');
+
 Route::get('home', function () {
     if(Auth::user()){
-      return view('layout.wrapper');
+      return (new DashboardController)->index();
     }else{
       return redirect('login');
     }
@@ -198,6 +202,8 @@ Route::get('penempatan/add/{id}',function($id){
 });
 Route::post('penempatan/add/{id}', 'PenempatanController@store');
 
+
+
 Route::get('jurnal', function(){
   if(Auth::user()->id_role==3){
     return (new JurnalController)->index();
@@ -214,6 +220,8 @@ Route::get('jurnal/add', function(){
 });
 Route::post('jurnal/add', 'JurnalController@store');
 
+
+
 Route::get('kehadiran', function(){
   if(Auth::user()->id_role==3){
     return (new KehadiranController)->index();
@@ -228,10 +236,15 @@ Route::get('kehadiran/add', function(){
     return view('404');
   }
 });
+
+
 Route::post('kehadiran/add', 'KehadiranController@store');
+
+Route::post('home', 'DashboardController@set_area');
 
 Route::get('/logout', function()
 {
   Auth::logout();
   return redirect('login');
 });
+

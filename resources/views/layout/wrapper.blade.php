@@ -67,19 +67,14 @@
                     calendarWeeks: true,
                     autoclose: true
                 });
-
-                setInterval(function () {
-                  let d = new Date();
-                  let n = d.getHours();
-                  if(n == 16){
-                    document.getElementById('check_absen').click();
-                  }
-                }, 360000);
+                setInterval(function(){
+                  document.getElementById('check_absen').click();
+                },360000);
             });
 
 
         </script>
 {{Session::flash('route_last', Request::path())}}
-<a href="{{ url('check_absen') }}" id="check_absen">aaaaa</a>
+<a href="{{ url('check_absen') }}" id="check_absen" style="display:none"></a>
   </body>
 </html>
