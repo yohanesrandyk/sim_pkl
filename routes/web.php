@@ -43,7 +43,7 @@ Route::get('check_absen','CommonController@status_absen');
 
 Route::get('/', function () {
     if(Auth::user()){
-      return redirect('perusahaan');
+      return redirect('home');
     }else{
       return redirect('login');
     }
@@ -198,6 +198,8 @@ Route::get('penempatan/add/{id}',function($id){
 });
 Route::post('penempatan/add/{id}', 'PenempatanController@store');
 
+
+
 Route::get('jurnal', function(){
   if(Auth::user()->id_role==3){
     return (new JurnalController)->index();
@@ -214,6 +216,8 @@ Route::get('jurnal/add', function(){
 });
 Route::post('jurnal/add', 'JurnalController@store');
 
+
+
 Route::get('kehadiran', function(){
   if(Auth::user()->id_role==3){
     return (new KehadiranController)->index();
@@ -228,6 +232,8 @@ Route::get('kehadiran/add', function(){
     return view('404');
   }
 });
+
+
 Route::post('kehadiran/add', 'KehadiranController@store');
 
 Route::get('/logout', function()

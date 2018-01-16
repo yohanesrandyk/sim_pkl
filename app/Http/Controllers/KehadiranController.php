@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Kehadiran;
-
+use App\Sesi;
 // class siswaObj{
 //   public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod;
 // }
@@ -43,12 +43,19 @@ class KehadiranController extends Controller
     }
     public function store(Request $req){
       Kehadiran::create([
-        "id" => "2",
+        "id" => Auth::user()->id_role,
         "divisi" => $req->divisi,
         "datang" => $req->datang,
         "pulang" => $req->pulang,
         "ket" => $req->ket,
       ]);
+      $status = Kehadiran::where('created_at', 'like', '%'.date("Y-m-d").'%')->get();
+      if(count($status) > 0){
+        $absen_sesi = Sesi::where("nama_sesi", "absen")->first();
+        if (count($absen_sesi) > 0) {
+          Sesi::where("nama_sesi", "absen")->destroy();
+        }
+      }
       return redirect("kehadiran/add");
     }
     // public function edit($id){

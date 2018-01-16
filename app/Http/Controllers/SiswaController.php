@@ -24,6 +24,25 @@ class SiswaController extends Controller
         $this->middleware('auth');
     }
 
+    public function write(){
+      $siswa = [];
+      $x = 1;
+      foreach ($get_siswa as $data) {
+         $obj = new siswaObj();
+         $user = User::where("id", $data->id)->first();
+         $obj->nis = $data->nis;
+         $obj->nama = $user->nama;
+         $obj->rayon = $data->id_rayon;
+         $obj->jurusan = $data->id_jurusan;
+         $obj->rombel = $data->id_rombel;
+         $obj->jk = $data->jk;
+         $obj->email = $user->email;
+         $obj->telp = $user->telp;
+         $obj->alamat = $user->alamat;
+         $siswa[$x] = $obj;
+         $x++;
+      }
+    }
     /**
      * Show the application dashboard.
      *

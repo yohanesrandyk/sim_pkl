@@ -45,7 +45,7 @@
             </li>
           @elseif (Auth::user()->id_role == 3)
             <li>
-                <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran @if (isset($SessionVar[0])){{$SessionVar[0]}}@endif</span></a>
+                <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span><span class="label label-info pull-right">@if (isset($SessionVar[0])){{$SessionVar[0]}}@endif</span></a>
             </li>
             <li>
                 <a href="{{url('jurnal')}}"><i class="fa fa-edit"></i><span class="nav-label">Jurnal</span></a>

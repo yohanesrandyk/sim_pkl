@@ -28,15 +28,18 @@ class CommonController extends Controller
      */
     public function status_absen()
     {
-
+      // $absen_last = Kehadiran::orderBy('')->get();
       $status = Kehadiran::where('created_at', 'like', '%'.date("Y-m-d").'%')->get();
       if(count($status) < 1){
-        Sesi::create([
-          "id" => "2",
-          "nama_sesi" => "absen",
-          "isi" => "1",
-          "status" => "0",
-        ]);
+        $absen_sesi = Sesi::where("nama_sesi", "absen")->first();
+        if (count($absen_sesi) < 1) {
+          Sesi::create([
+            "id" => Auth::user()->id,
+            "nama_sesi" => "absen",
+            "isi" => "1",
+            "status" => "0",
+          ]);
+        }
       }
       return redirect(Session::get('route_last'));
     }
