@@ -88,7 +88,11 @@ class SiswaController extends Controller
         "telp" => $req->telp,
         "bod" => $req->bod,
         "bop" => $req->bop,
-        "alamat" => $req->alamat
+        "alamat" => $req->alamat,
+        "status" => 1
+        //status 1 = siswa_created
+        //status 2 = siswa_kota_select,
+        //status 3 = siswa_wait_to select,
       ]);
       $last_user = User::orderBy("created_at", "desc")->first();
       Siswa::create([

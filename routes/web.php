@@ -12,6 +12,8 @@ use App\Http\Controllers\SuratPengantarController;
 use App\Http\Controllers\SuratPermohonanController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |---------------------------------------------------------------------|-----
 | Web Routes
@@ -29,7 +31,7 @@ Auth::routes();
 //   event(new App\Events\StatusLiked('Someone'));
 //   return "Event has been sent!";
 // });
-//
+
 // Route::get('notif', function () {
 //   return view('notify');
 // });
@@ -49,9 +51,11 @@ Route::get('/', function () {
     }
 });
 
+// Route::get('home','DashboardController@index');
+
 Route::get('home', function () {
     if(Auth::user()){
-      return view('layout.wrapper');
+      return (new DashboardController)->index();
     }else{
       return redirect('login');
     }
@@ -236,8 +240,11 @@ Route::get('kehadiran/add', function(){
 
 Route::post('kehadiran/add', 'KehadiranController@store');
 
+Route::post('home', 'DashboardController@set_area');
+
 Route::get('/logout', function()
 {
   Auth::logout();
   return redirect('login');
 });
+

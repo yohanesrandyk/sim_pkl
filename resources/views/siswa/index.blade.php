@@ -1,7 +1,7 @@
 @extends('layout.wrapper')
 @section('content')
   <div class="col-lg-12">
-    <div class="ibox float-e-margins">
+      <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>Tabel Siswa</h5>
         </div>
@@ -39,5 +39,5 @@
           <a href="siswa/add" class="btn btn-primary">Add</a>
         </div>
       </div>
-    </div>
+  </div>
 @endsection
