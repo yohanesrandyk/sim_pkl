@@ -22,6 +22,9 @@
             </li>
             @if (Auth::user()->status == 0)
             <li>
+                <a href="{{url('persyaratan')}}"><i class="fa fa-check"></i><span class="nav-label">Persyaratan Siswa</span></a>
+            </li>
+            <li>
                 <a href="{{url('referensi')}}"><i class="fa fa-tags"></i><span class="nav-label">Referensi Siswa</span></a>
             </li>
             <li>

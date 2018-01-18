@@ -14,6 +14,7 @@ use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReferensiController;
+use App\Http\Controllers\PersyaratanController;
 
 /*
 |---------------------------------------------------------------------|-----
@@ -236,6 +237,14 @@ Route::get('kehadiran/add', function(){
   }
 });
 
+
+Route::get('persyaratan', function(){
+  if(Auth::user()->id_role==1){
+    return (new PersyaratanController)->index();
+  }else{
+    return view('404');
+  }
+});
 
 Route::get('referensi', function(){
   if(Auth::user()->id_role==1){

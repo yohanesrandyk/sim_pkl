@@ -83,6 +83,39 @@
               </div>
           </div>
           <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Jurusan</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="jurusan">
+                      <option value="" selected="">Pilih Jurusan</option>
+                      @foreach($jurusan as $data)
+                        <option value="{{$data->id_jurusan}}">{{$data->jurusan}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Rombel</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="rombel">
+                      <option value="" selected="">Pilih Rombel</option>
+                      @foreach($rombel as $data)
+                        <option value="{{$data->id_rombel}}">{{$data->rombel}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Rayon</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="rayon">
+                      <option value="" selected="">Pilih Rayon</option>
+                      @foreach($rayon as $data)
+                        <option value="{{$data->id_rayon}}">{{$data->rayon}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+          <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Username</label>
               <div class="col-sm-10">
                   <input type="text" class="form-control" name="username" required value="{{ old('username') }}">
