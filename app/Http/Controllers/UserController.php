@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Role;
+use App\Rayon;
+use App\Jurusan;
+use App\Pembimbing;
+use App\Kaprog;
 
 // class siswaObj{
 //   public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod;
@@ -29,11 +34,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $user = User::all();
+        $user = User::where("id_role", "<>", 3)->get();
         return view("user.index",compact("user"));
     }
     public function create(){
-      return view("user.add");
+      $role = Role::all();
+      $jurusan = Jurusan::all();
+      $rayon = Rayon::all();
+      return view("user.add", compact("role", "jurusan", "rayon"));
     }
     public function store(Request $req){
       $this->validate($req, [
@@ -42,7 +50,7 @@ class UserController extends Controller
         'password' => 'required|string|min:6|confirmed',
       ]);
       User::create([
-        "id_role" => "1",
+        "id_role" => $req->role,
         "username" => $req->nama,
         "password" => bcrypt($req->password),
         "nama" => $req->nama,
@@ -52,6 +60,18 @@ class UserController extends Controller
         "bop" => $req->bop,
         "alamat" => $req->alamat
       ]);
+      $id = User::orderBy("created_at", "desc")->first()->id;
+      if ($req->role==2) {
+        Kaprog::create([
+          "id" => $id,
+          "id_jurusan" => $req->jurusan
+        ]);
+      }else if($req->role==4){
+        Pembimbing::create([
+          "id" => $id,
+          "id_rayon" => $req->rayon
+        ]);
+      };
       return redirect("user");
     }
     public function edit($id){

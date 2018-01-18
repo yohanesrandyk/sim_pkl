@@ -55,6 +55,59 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Role *</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="role" required="" onchange="
+                      if(this.value == 2){
+                        $('#jurusan').prop('disabled', false);
+                        $('#rayon').prop('disabled', true);
+                        $('#rayon').prop('required', false);
+                        $('#jurusan').prop('required', true);
+                      }else if(this.value == 4){
+                        $('#rayon').prop('disabled', false);
+                        $('#jurusan').prop('disabled', true);
+                        $('#rayon').prop('required', true);
+                        $('#jurusan').prop('required', false);
+                      }else{
+                        $('#rayon').prop('disabled', true);
+                        $('#jurusan').prop('disabled', true);
+                        $('#rayon').prop('required', false);
+                        $('#jurusan').prop('required', false);
+                      }
+                    ">
+                      <option value="" selected="">Pilih Role</option>
+                      @foreach($role as $data)
+                        @if($data->id_role==3)
+                        @else
+                        <option value="{{$data->id_role}}">{{$data->role}}</option>
+                        @endif
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Jurusan</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="jurusan" id="jurusan" disabled="">
+                      <option value="" selected="">Pilih Jurusan</option>
+                      @foreach($jurusan as $data)
+                        <option value="{{$data->id_jurusan}}">{{$data->jurusan}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Rayon</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="rayon" id="rayon" disabled="">
+                      <option value="" selected="">Pilih Rayon</option>
+                      @foreach($rayon as $data)
+                        <option value="{{$data->id_rayon}}">{{$data->rayon}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="username" required value="{{ old('username') }}">

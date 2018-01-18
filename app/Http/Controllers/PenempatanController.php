@@ -39,26 +39,28 @@ class PenempatanController extends Controller
         foreach ($siswa_get as $data) {
            $obj = new siswaObj();
            $user = User::where("id", $data->id)->first();
-           $obj->nis = $data->nis;
-           $obj->nama = $user->nama;
-           $obj->jurusan = $data->id_jurusan;
+           if($user->status==3){
+              $obj->nis = $data->nis;
+               $obj->nama = $user->nama;
+               $obj->jurusan = $data->id_jurusan;
 
-           if ($data->id_perusahaan > 0) {
-             $obj->perusahaan = Perusahaan::where('id_perusahaan', $data->id_perusahaan)->first()->perusahaan;
-           }else{
-             $obj->perusahaan = "-";
+               if ($data->id_perusahaan > 0) {
+                 $obj->perusahaan = Perusahaan::where('id_perusahaan', $data->id_perusahaan)->first()->perusahaan;
+               }else{
+                 $obj->perusahaan = "-";
+               }
+
+               if (is_null($data->status_perusahaan)) {
+                 $obj->status_perusahaan = "-";
+               }elseif ($data->status_perusahaan == 1) {
+                 $obj->status_perusahaan = "Terverifikasi";
+               }elseif($data->status_perusahaan == 0){
+                 $obj->status_perusahaan = "Pending";
+               }
+
+               $siswa[$x] = $obj;
+               $x++;
            }
-
-           if (is_null($data->status_perusahaan)) {
-             $obj->status_perusahaan = "-";
-           }elseif ($data->status_perusahaan == 1) {
-             $obj->status_perusahaan = "Terverifikasi";
-           }elseif($data->status_perusahaan == 0){
-             $obj->status_perusahaan = "Pending";
-           }
-
-           $siswa[$x] = $obj;
-           $x++;
         }
         $perusahaan_get = Perusahaan::where('status','1')->get();
         $perusahaan = [];$x = 0;
@@ -76,27 +78,32 @@ class PenempatanController extends Controller
         return view("penempatan.index",["siswa"=>$siswa, "perusahaan"=>$perusahaan]);
     }
     public function create($id){
-      $siswa_get = Siswa::whereNull('id_perusahaan')->get();$siswa_quo = [];$x = 1;
+      $area = Perusahaan::where('id_perusahaan', $id)->first()->id_area;
+      $siswa_get = Siswa::whereNull('id_perusahaan')->where('id_area', $area)->get();$siswa_quo = [];$x = 1;
       foreach ($siswa_get as $data) {
          $obj = new siswaObj();
          $user = User::where("id", $data->id)->first();
-         $obj->nis = $data->nis;
-         $obj->jurusan = $data->id_jurusan;
-         $obj->nama = $user->nama;
-         $obj->id = $data->id;
-         $siswa_quo[$x] = $obj;
-         $x++;
+         if($user->status==3){
+          $obj->nis = $data->nis;
+          $obj->jurusan = $data->id_jurusan;
+          $obj->nama = $user->nama;
+          $obj->id = $data->id;
+          $siswa_quo[$x] = $obj;
+          $x++;
+         }
       }
       $siswa_get = Siswa::where([['id_perusahaan', $id],['status_perusahaan', '0']])->get();$siswa_tmp = [];$x = 1;
       foreach ($siswa_get as $data) {
          $obj = new siswaObj();
          $user = User::where("id", $data->id)->first();
-         $obj->nis = $data->nis;
-         $obj->nama = $user->nama;
-         $obj->jurusan = $data->id_jurusan;
-         $obj->id = $data->id;
-         $siswa_tmp[$x] = $obj;
-         $x++;
+        if($user->status==3){
+          $obj->nis = $data->nis;
+          $obj->nama = $user->nama;
+          $obj->jurusan = $data->id_jurusan;
+          $obj->id = $data->id;
+          $siswa_tmp[$x] = $obj;
+          $x++;
+        }
       }
       $thisperusahaan = Perusahaan::where('id_perusahaan',$id)->first();
       return view("penempatan.add",["siswa_quo"=>$siswa_quo,"siswa_tmp"=>$siswa_tmp, "thisperusahaan"=>$thisperusahaan]);

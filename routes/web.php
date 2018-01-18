@@ -13,6 +13,7 @@ use App\Http\Controllers\SuratPermohonanController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReferensiController;
 
 /*
 |---------------------------------------------------------------------|-----
@@ -50,8 +51,6 @@ Route::get('/', function () {
       return redirect('login');
     }
 });
-
-// Route::get('home','DashboardController@index');
 
 Route::get('home', function () {
     if(Auth::user()){
@@ -237,6 +236,38 @@ Route::get('kehadiran/add', function(){
   }
 });
 
+
+Route::get('referensi', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('rayon/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_rayon();
+  }else{
+    return view('404');
+  }
+});
+Route::get('rombel/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_rombel();
+  }else{
+    return view('404');
+  }
+});
+Route::get('jurusan/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_jurusan();
+  }else{
+    return view('404');
+  }
+});
+Route::post('rayon/add', 'ReferensiController@store_rayon');
+Route::post('rombel/add', 'ReferensiController@store_rombel');
+Route::post('jurusan/add', 'ReferensiController@store_jurusan');
 
 Route::post('kehadiran/add', 'KehadiranController@store');
 
