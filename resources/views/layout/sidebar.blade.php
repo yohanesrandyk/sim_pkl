@@ -11,7 +11,15 @@
                         <strong class="font-bold">{{Auth::user()->nama}}</strong>
                       </span>
                       <span class="text-muted text-xs block">
-                        @if (Auth::user()->id_role == "3") Siswa @else User @endif
+                        @if (Auth::user()->id_role == "1") 
+                        BKK
+                        @elseif(Auth::user()->id_role == "2")
+                        Kepala Program 
+                        @elseif(Auth::user()->id_role == "3")
+                        Siswa
+                        @elseif(Auth::user()->id_role == "4")
+                        Pembimbing Rayon
+                        @endif
                       </span>
                     </span>
                   </a>
@@ -24,6 +32,7 @@
             <li>
                 <a href="{{url('persyaratan')}}"><i class="fa fa-check"></i><span class="nav-label">Persyaratan Siswa</span></a>
             </li>
+            @if (Auth::user()->id_role == 1)
             <li>
                 <a href="{{url('referensi')}}"><i class="fa fa-tags"></i><span class="nav-label">Referensi Siswa</span></a>
             </li>
@@ -41,13 +50,14 @@
                 </ul>
             </li>
             <li>
-                <a href="{{url('siswa')}}"><i class="fa fa-male"></i><span class="nav-label">Siswa</span></a>
-            </li>
-            <li>
                 <a href="{{url('user')}}"><i class="fa fa-user"></i><span class="nav-label">User</span></a>
             </li>
             <li>
                 <a href="{{url('penempatan')}}"><i class="fa fa-map-marker"></i><span class="nav-label">Penempatan</span></a>
+            </li>
+            @endif
+            <li>
+                <a href="{{url('siswa')}}"><i class="fa fa-male"></i><span class="nav-label">Siswa</span></a>
             </li>
           @elseif (Auth::user()->status == 3)
             <li>

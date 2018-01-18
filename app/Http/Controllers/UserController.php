@@ -51,14 +51,14 @@ class UserController extends Controller
       ]);
       User::create([
         "id_role" => $req->role,
-        "username" => $req->nama,
+        "username" => $req->username,
         "password" => bcrypt($req->password),
         "nama" => $req->nama,
         "email" => $req->email,
         "telp" => $req->telp,
         "bod" => $req->bod,
         "bop" => $req->bop,
-        "alamat" => $req->alamat
+        "alamat" => $req->alamat,
       ]);
       $id = User::orderBy("created_at", "desc")->first()->id;
       if ($req->role==2) {

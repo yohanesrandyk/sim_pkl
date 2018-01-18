@@ -21,7 +21,8 @@
               </thead>
               <tbody>
                 @foreach ($siswa as $data)
-                  <tr>
+                  <tr @if(Auth::user()->id_role==1) onclick="document.getElementById('{{$data->id}}').click();" @endif>
+                    <a id="{{$data->id}}" href="siswa/e/{{$data->id}}" style="display:none"></a>
                     <td>{{$data->nis}}</td>
                     <td>{{$data->nama}}</td>
                     <td>{{$data->rayon}}</td>
@@ -36,7 +37,9 @@
               </tbody>
             </table>
           </div>
+          @if(Auth::user()->id_role==1)
           <a href="siswa/add" class="btn btn-primary">Add</a>
+          @endif
         </div>
       </div>
   </div>

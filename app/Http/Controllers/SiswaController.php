@@ -13,7 +13,7 @@ use App\Rombel;
 use App\Persyaratan;
 
 class siswaObj{
-  public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod;
+  public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod, $id;
 }
 
 class SiswaController extends Controller
@@ -49,6 +49,7 @@ class SiswaController extends Controller
            $obj->email = $user->email;
            $obj->telp = $user->telp;
            $obj->alamat = $user->alamat;
+           $obj->id = $data->id;
            $siswa[$x] = $obj;
            $x++;
         }

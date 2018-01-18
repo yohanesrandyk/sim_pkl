@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Persyaratan;
+use App\User;
 use App\Siswa;
 use App\Rayon;
 use App\Jurusan;
+use App\Pembimbing;
 
 class siswaObj{
   public $nis, $nama, $rayon, $jurusan, $bantara, $nilai, $keuangan, $kesiswaaan, $cbt_prod, $kehadiran_pengayaan, $ujikom, $perpus;
@@ -32,7 +34,12 @@ class PersyaratanController extends Controller
      */
     
      public function index(){
-      $get_siswa = Siswa::all();
+        if(Auth::user()->id_role==4){
+            $id_rayon = Pembimbing::where("id", Auth::user()->id)->first()->id_rayon;
+            $get_siswa = Siswa::where("id_rayon", $id_rayon)->get();
+        }else{
+            $get_siswa = Siswa::all();
+        }
       $siswa = [];
       $x = 1;
       foreach ($get_siswa as $data) {
@@ -42,7 +49,7 @@ class PersyaratanController extends Controller
          $obj->nis = $data->nis;
          $obj->nama = $user->nama;
          $obj->rayon = Rayon::where("id_rayon", $data->id_rayon)->first()->rayon;
-         $obj->jurusan = Jurusan::where("id_jurusan", $data->id_jurusan)->jurusan;
+         $obj->jurusan = Jurusan::where("id_jurusan", $data->id_jurusan)->first()->jurusan;
          $obj->bantara = $syarat->bantara;
          $obj->nilai = $syarat->nilai;
          $obj->keuangan = $syarat->keuangan;

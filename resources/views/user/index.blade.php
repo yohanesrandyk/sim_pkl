@@ -16,7 +16,8 @@
               </thead>
               <tbody>
                 @foreach ($user as $data)
-                  <tr>
+                  <tr onclick="document.getElementById('{{$data->id}}').click();">
+                    <a id="{{$data->id}}" href="user/e/{{$data->id}}" style="display:none"></a>
                     <td>{{$data->nama}}</td>
                     <td>{{$data->email}}</td>
                     <td>{{$data->telp}}</td>

@@ -124,7 +124,7 @@ Route::get('suratpermohonan/add',function(){
 });
 
 Route::get('siswa', function(){
-  if(Auth::user()->id_role==1){
+  if(Auth::user()->status==0){
     return (new SiswaController)->index();
   }else{
     return view('404');
@@ -239,7 +239,7 @@ Route::get('kehadiran/add', function(){
 
 
 Route::get('persyaratan', function(){
-  if(Auth::user()->id_role==1){
+  if(Auth::user()->status==0){
     return (new PersyaratanController)->index();
   }else{
     return view('404');
@@ -274,12 +274,11 @@ Route::get('jurusan/add', function(){
     return view('404');
   }
 });
+
 Route::post('rayon/add', 'ReferensiController@store_rayon');
 Route::post('rombel/add', 'ReferensiController@store_rombel');
 Route::post('jurusan/add', 'ReferensiController@store_jurusan');
-
 Route::post('kehadiran/add', 'KehadiranController@store');
-
 Route::post('home', 'DashboardController@set_area');
 
 Route::get('/logout', function()

@@ -44,6 +44,7 @@
               <label class="col-sm-2 col-sm-2 control-label">Agama</label>
               <div class="col-sm-10">
                 <select class="form-control" name="agama" required>
+                    <option value="" selected="">Pilih Agama</option>
                     <option value="Kristen" @if (old('agama')=="Kristen")@endif>Kristen</option>
                     <option value="Islam" @if (old('agama')=="Islam")@endif>Islam</option>
                     <option value="Hindu" @if (old('agama')=="Hindu")@endif>Hindu</option>

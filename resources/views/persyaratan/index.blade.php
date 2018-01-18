@@ -27,14 +27,14 @@
                   <tr>
                     <td>{{$data->nis}}</td>
                     <td>{{$data->nama}}</td>
-                    <td>{{$data->rayon}}</td>
                     <td>{{$data->jurusan}}</td>
+                    <td>{{$data->rayon}}</td>
                     <td><input type="checkbox" name="" @if ($data->bantara > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->nilai > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->keuangan > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->kesiswaan > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->cbt_prod > 0) checked @endif></td>
-                    <td><input type="checkbox" name="" @if ($data->kehadiran > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" @if ($data->kehadiran_pengayaan > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->ujikel > 0) checked @endif></td>
                     <td><input type="checkbox" name="" @if ($data->perpus > 0) checked @endif></td>
                   </tr>
@@ -42,7 +42,6 @@
               </tbody>
             </table>
           </div>
-          <a href="user/add" class="btn btn-primary">Add</a>
         </div>
       </div>
     </div>
