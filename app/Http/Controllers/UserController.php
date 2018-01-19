@@ -35,7 +35,8 @@ class UserController extends Controller
      */
      public function index(){
         $user = User::where("id_role", "<>", 3)->get();
-        return view("user.index",compact("user"));
+        $role = Role::all();
+        return view("user.index",compact("user", "role"));
     }
     public function create(){
       $role = Role::all();

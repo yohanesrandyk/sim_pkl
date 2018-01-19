@@ -61,6 +61,40 @@ Route::get('home', function () {
     }
 });
 
+//bkk
+
+Route::get('referensi', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->index();
+  }else{
+    return view('404');
+  }
+});
+Route::get('rayon/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_rayon();
+  }else{
+    return view('404');
+  }
+});
+Route::get('rombel/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_rombel();
+  }else{
+    return view('404');
+  }
+});
+Route::get('jurusan/add', function(){
+  if(Auth::user()->id_role==1){
+    return (new ReferensiController)->create_jurusan();
+  }else{
+    return view('404');
+  }
+});
+Route::post('rayon/add', 'ReferensiController@store_rayon');
+Route::post('rombel/add', 'ReferensiController@store_rombel');
+Route::post('jurusan/add', 'ReferensiController@store_jurusan');
+
 Route::get('bidangperusahaan', function(){
   if(Auth::user()->id_role==1){
     return (new BidangPerusahaanController)->index();
@@ -123,13 +157,18 @@ Route::get('suratpermohonan/add',function(){
   }
 });
 
+//bkk, kaprog, pembimbing
+
 Route::get('siswa', function(){
-  if(Auth::user()->status==0){
+  if(Auth::user()->id_role == 1 || Auth::user()->id_role == 2 || Auth::user()->id_role == 4){
     return (new SiswaController)->index();
   }else{
     return view('404');
   }
 });
+
+//end
+
 Route::get('siswa/add', function(){
   if(Auth::user()->id_role==1){
     return (new SiswaController)->create();
@@ -153,7 +192,6 @@ Route::get('siswa/del/{id}',function($id){
     return view('404');
   }
 });
-
 
 Route::get('user', function(){
   if(Auth::user()->id_role==1){
@@ -186,15 +224,19 @@ Route::get('user/del/{id}',function($id){
   }
 });
 
+//endbkk
+
+//kaprog
+
 Route::get('penempatan', function(){
-  if(Auth::user()->id_role==1){
+  if(Auth::user()->id_role==2){
     return (new PenempatanController)->index();
   }else{
     return view('404');
   }
 });
 Route::get('penempatan/add/{id}',function($id){
-  if(Auth::user()->id_role==1){
+  if(Auth::user()->id_role==2){
     return (new PenempatanController)->create($id);
   }else{
     return view('404');
@@ -202,84 +244,58 @@ Route::get('penempatan/add/{id}',function($id){
 });
 Route::post('penempatan/add/{id}', 'PenempatanController@store');
 
+//endkaprog
 
+//Siswa
 
 Route::get('jurnal', function(){
-  if(Auth::user()->id_role==3){
+  if(Auth::user()->status == 3){
     return (new JurnalController)->index();
   }else{
     return view('404');
   }
 });
 Route::get('jurnal/add', function(){
-  if(Auth::user()->id_role==3){
+  if(Auth::user()->status == 3){
     return (new JurnalController)->create();
   }else{
     return view('404');
   }
 });
-Route::post('jurnal/add', 'JurnalController@store');
-
-
-
 Route::get('kehadiran', function(){
-  if(Auth::user()->id_role==3){
+  if(Auth::user()->status == 3){
     return (new KehadiranController)->index();
   }else{
     return view('404');
   }
 });
 Route::get('kehadiran/add', function(){
-  if(Auth::user()->id_role==3){
+  if(Auth::user()->status == 3){
     return (new KehadiranController)->create();
   }else{
     return view('404');
   }
 });
+Route::post('jurnal/add', 'JurnalController@store');
+Route::post('kehadiran/add', 'KehadiranController@store');
+Route::post('home', 'DashboardController@set_area');
 
+//endsiswa
+
+//pengisipersyaratan
 
 Route::get('persyaratan', function(){
-  if(Auth::user()->status==0){
+  if(Auth::user()->id_role == 2 || Auth::user()->id_role > 3){
     return (new PersyaratanController)->index();
   }else{
     return view('404');
   }
 });
 
-Route::get('referensi', function(){
-  if(Auth::user()->id_role==1){
-    return (new ReferensiController)->index();
-  }else{
-    return view('404');
-  }
-});
-Route::get('rayon/add', function(){
-  if(Auth::user()->id_role==1){
-    return (new ReferensiController)->create_rayon();
-  }else{
-    return view('404');
-  }
-});
-Route::get('rombel/add', function(){
-  if(Auth::user()->id_role==1){
-    return (new ReferensiController)->create_rombel();
-  }else{
-    return view('404');
-  }
-});
-Route::get('jurusan/add', function(){
-  if(Auth::user()->id_role==1){
-    return (new ReferensiController)->create_jurusan();
-  }else{
-    return view('404');
-  }
-});
+//endpengisipersyaratan
 
-Route::post('rayon/add', 'ReferensiController@store_rayon');
-Route::post('rombel/add', 'ReferensiController@store_rombel');
-Route::post('jurusan/add', 'ReferensiController@store_jurusan');
-Route::post('kehadiran/add', 'KehadiranController@store');
-Route::post('home', 'DashboardController@set_area');
+
+//endbkk
 
 Route::get('/logout', function()
 {

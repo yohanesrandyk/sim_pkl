@@ -28,10 +28,11 @@
                     SP
                 </div>
             </li>
-            @if (Auth::user()->status == 0)
+            @if (Auth::user()->id_role == 2 || Auth::user()->id_role > 3)
             <li>
                 <a href="{{url('persyaratan')}}"><i class="fa fa-check"></i><span class="nav-label">Persyaratan Siswa</span></a>
             </li>
+            @endif
             @if (Auth::user()->id_role == 1)
             <li>
                 <a href="{{url('referensi')}}"><i class="fa fa-tags"></i><span class="nav-label">Referensi Siswa</span></a>
@@ -52,21 +53,25 @@
             <li>
                 <a href="{{url('user')}}"><i class="fa fa-user"></i><span class="nav-label">User</span></a>
             </li>
+            @endif
+            @if(Auth::user()->id_role == 2)
             <li>
                 <a href="{{url('penempatan')}}"><i class="fa fa-map-marker"></i><span class="nav-label">Penempatan</span></a>
             </li>
             @endif
+            @if (Auth::user()->id_role == 1 || Auth::user()->id_role == 2 || Auth::user()->id_role == 4)
             <li>
                 <a href="{{url('siswa')}}"><i class="fa fa-male"></i><span class="nav-label">Siswa</span></a>
             </li>
-          @elseif (Auth::user()->status == 3)
+            @endif
+            @if (Auth::user()->status == 3)
             <li>
                 <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span><span class="label label-info pull-right">@if (isset($SessionVar[0])){{$SessionVar[0]}}@endif</span></a>
             </li>
             <li>
                 <a href="{{url('jurnal')}}"><i class="fa fa-edit"></i><span class="nav-label">Jurnal</span></a>
             </li>
-        @endif
+            @endif
         </ul>
     </div>
 </nav>
