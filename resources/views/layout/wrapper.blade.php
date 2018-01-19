@@ -67,13 +67,19 @@
                     calendarWeeks: true,
                     autoclose: true
                 });
-                setInterval(function(){
-                  document.getElementById('check_absen').click();
-                },360000);
             });
 
 
         </script>
+        @if(Auth::user()->status==3)
+        <script type="text/javascript">
+            $(document).ready(function(){
+                setInterval(function(){
+                  document.getElementById('check_absen').click();
+                },360000);
+            });
+        </script>
+        @endif
 {{Session::flash('route_last', Request::path())}}
 <a href="{{ url('check_absen') }}" id="check_absen" style="display:none"></a>
   </body>

@@ -12,7 +12,7 @@
   <thead>
     <th>NIS</th>
     <th>Nama</th>
-    <th>Jurusan</th>
+    <th>Rayon</th>
     <th></th>
   </thead>
   <tbody>
@@ -24,7 +24,7 @@
       <tr class="row_quo" onclick="document.getElementById('quo{{$data->id}}').click();">
         <td>{{$data->nis}}</td>
         <td>{{$data->nama}}</td>
-        <td>{{$data->jurusan}}</td>
+        <td>{{$data->rayon}}</td>
         <td><div class="" onclick="document.getElementById('quo{{$data->id}}').click();">
           <input id="quo{{$data->id}}" type="checkbox" name="" value="" onclick="
             if(document.getElementById('quo{{$data->id}}').checked == true){arr_quo.push({{$data->id}});}
@@ -59,7 +59,7 @@
     <tr>
       <th>NIS</th>
       <th>Nama</th>
-      <th>Jurusan</th>
+      <th>Rayon</th>
       <th></th>
     </tr>
   </thead>
@@ -69,7 +69,7 @@
         <tr class="row_tmp" onclick="document.getElementById('tmp{{$data->id}}').click();">
           <td>{{$data->nis}}</td>
           <td>{{$data->nama}}</td>
-          <td>{{$data->jurusan}}</td>
+          <td>{{$data->rayon}}</td>
           <td><div class="" onclick="document.getElementById('tmp{{$data->id}}').click();">
             <input id="tmp{{$data->id}}" type="checkbox" name="" value="" onclick="
               if(document.getElementById('tmp{{$data->id}}').checked == true) {arr_tmp.push({{$data->id}});}

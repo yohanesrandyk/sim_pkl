@@ -42,24 +42,56 @@
                     <td>{{$data->jurusan}}</td>
                     <td>{{$data->rayon}}</td>
                     @if(Auth::user()->id_role==5)
-                    <td><input type="checkbox" name="" @if ($data->bantara > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('bantara');
+                      document.getElementById('submit').click();
+                    " @if ($data->bantara > 0) checked disabled @endif></td>
                     @endif
                     @if(Auth::user()->id_role==4)
-                    <td><input type="checkbox" name="" @if ($data->nilai > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('nilai');
+                      document.getElementById('submit').click();
+                    " @if ($data->nilai > 0) checked disabled @endif></td>
                     @endif
                     @if(Auth::user()->id_role==8)
-                    <td><input type="checkbox" name="" @if ($data->keuangan > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('keuangan');
+                      document.getElementById('submit').click();
+                    " @if ($data->keuangan > 0) checked disabled @endif></td>
                     @endif
                     @if(Auth::user()->id_role==7)
-                    <td><input type="checkbox" name="" @if ($data->kesiswaan > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('kesiswaan');
+                      document.getElementById('submit').click();
+                    " @if ($data->kesiswaan > 0) checked disabled @endif></td>
                     @endif
                     @if(Auth::user()->id_role==2)
-                    <td><input type="checkbox" name="" @if ($data->cbt_prod > 0) checked @endif></td>
-                    <td><input type="checkbox" name="" @if ($data->kehadiran_pengayaan > 0) checked @endif></td>
-                    <td><input type="checkbox" name="" @if ($data->ujikel > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('cbt_prod');
+                      document.getElementById('submit').click();
+                    " @if ($data->cbt_prod > 0) checked disabled @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('kehadiran_pengayaan_pkl');
+                      document.getElementById('submit').click();
+                    " @if ($data->kehadiran_pengayaan > 0) checked disabled @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('lulus_ujikelayakan');
+                      document.getElementById('submit').click();
+                    " @if ($data->ujikel > 0) checked disabled @endif></td>
                     @endif
                     @if(Auth::user()->id_role==6)
-                    <td><input type="checkbox" name="" @if ($data->perpus > 0) checked @endif></td>
+                    <td><input type="checkbox" name="" onclick="
+                      $('#nis').val({{$data->nis}});
+                      $('#field').val('perpustakaan');
+                      document.getElementById('submit').click();
+                    " @if ($data->perpus > 0) checked disabled @endif></td>
                     @endif
                   </tr>
                 @endforeach
@@ -69,4 +101,9 @@
         </div>
       </div>
     </div>
+    <form action="#" style="display: none" method="post">{{ csrf_field() }}
+      <input type="text" name="nis" id="nis">
+      <input type="text" name="field" id="field">
+      <input type="submit" name="" id="submit">
+    </form>
 @endsection

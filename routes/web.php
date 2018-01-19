@@ -291,6 +291,7 @@ Route::get('persyaratan', function(){
     return view('404');
   }
 });
+Route::post('persyaratan', 'PersyaratanController@store');
 
 //endpengisipersyaratan
 

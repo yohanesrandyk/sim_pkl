@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Siswa;
+use App\Jurusan;
+use App\Kaprog;
+use App\Rayon;
 use App\Perusahaan;
 
 class siswaObj{
@@ -33,7 +36,8 @@ class PenempatanController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $siswa_get = Siswa::all();
+        $jurusan = Kaprog::where('id', Auth::user()->id)->first()->id_jurusan;
+        $siswa_get = Siswa::where([['id_jurusan', $jurusan], ["status", 3]])->get();
         $siswa = [];
         $x = 0;
         foreach ($siswa_get as $data) {
@@ -42,7 +46,7 @@ class PenempatanController extends Controller
            if($user->status==3){
               $obj->nis = $data->nis;
                $obj->nama = $user->nama;
-               $obj->jurusan = $data->id_jurusan;
+               $obj->rayon = Rayon::where('id_rayon', $data->id_rayon)->first()->rayon;
 
                if ($data->id_perusahaan > 0) {
                  $obj->perusahaan = Perusahaan::where('id_perusahaan', $data->id_perusahaan)->first()->perusahaan;
@@ -78,28 +82,29 @@ class PenempatanController extends Controller
         return view("penempatan.index",["siswa"=>$siswa, "perusahaan"=>$perusahaan]);
     }
     public function create($id){
+        $jurusan = Kaprog::where('id', Auth::user()->id)->first()->id_jurusan;
       $area = Perusahaan::where('id_perusahaan', $id)->first()->id_area;
-      $siswa_get = Siswa::whereNull('id_perusahaan')->where('id_area', $area)->get();$siswa_quo = [];$x = 1;
+      $siswa_get = Siswa::whereNull('id_perusahaan')->where([['id_area', $area], ['id_jurusan', $jurusan]])->get();$siswa_quo = [];$x = 1;
       foreach ($siswa_get as $data) {
          $obj = new siswaObj();
          $user = User::where("id", $data->id)->first();
          if($user->status==3){
           $obj->nis = $data->nis;
-          $obj->jurusan = $data->id_jurusan;
+               $obj->rayon = Rayon::where('id_rayon', $data->id_rayon)->first()->rayon;
           $obj->nama = $user->nama;
           $obj->id = $data->id;
           $siswa_quo[$x] = $obj;
           $x++;
          }
       }
-      $siswa_get = Siswa::where([['id_perusahaan', $id],['status_perusahaan', '0']])->get();$siswa_tmp = [];$x = 1;
+      $siswa_get = Siswa::where([['id_perusahaan', $id],['status_perusahaan', '0'],['id_jurusan', $jurusan]])->get();$siswa_tmp = [];$x = 1;
       foreach ($siswa_get as $data) {
          $obj = new siswaObj();
          $user = User::where("id", $data->id)->first();
         if($user->status==3){
           $obj->nis = $data->nis;
           $obj->nama = $user->nama;
-          $obj->jurusan = $data->id_jurusan;
+               $obj->rayon = Rayon::where('id_rayon', $data->id_rayon)->first()->rayon;
           $obj->id = $data->id;
           $siswa_tmp[$x] = $obj;
           $x++;

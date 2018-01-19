@@ -63,10 +63,34 @@ class PersyaratanController extends Controller
       }
       return view("persyaratan.index",compact("siswa"));
     }
-    // public function set(Request $req, $id){
-    //   $persyaratan = Persyaratan::all();
-    //   Persyaratan::where()->update([
-    //     "" => 1
-    //   ]);
-    // }
+    public function store(Request $req){
+      Persyaratan::where("nis", $req->nis)->update([
+        $req->field => 1
+      ]);
+        $persyaratan = Persyaratan::where([
+            ["nis", $req->nis],
+            ["nilai", 1],
+            ["bantara", 1],
+            ["keuangan", 1],
+            ["kesiswaan", 1],
+            ["cbt_prod", 1],
+            ["kehadiran_pengayaan_pkl", 1],
+            ["lulus_ujikelayakan", 1],
+            ["perpustakaan", 1],
+        ])->first();
+        if (count($persyaratan)>0) {
+            $id = Siswa::where("nis", $req->nis)->first()->id; 
+            $status = User::where('id', $id)->first()->status;
+            if ($status == 1) {
+                User::where('id', $id)->update([
+                    "status" => 4
+                ]);
+            }else if ($status == 2) {
+                User::where('id', $id)->update([
+                    "status" => 3
+                ]);
+            }
+        };
+      return redirect('persyaratan');
+    }
 }

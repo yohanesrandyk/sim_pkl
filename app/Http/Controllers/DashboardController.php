@@ -28,7 +28,7 @@ class DashboardController extends Controller
       if (Auth::user()->status==0) {
         return view("dashboard.status0");
       }
-      else if (Auth::user()->status==1) {
+      else if (Auth::user()->status==1 || Auth::user()->status==4) {
         return view("dashboard.status1");
       }
       else if (Auth::user()->status==2) {

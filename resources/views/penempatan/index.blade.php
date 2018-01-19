@@ -45,7 +45,7 @@
               <thead>
                 <th>NIS</th>
                 <th>Nama</th>
-                <th>Jurusan</th>
+                <th>Rayon</th>
                 <th>Perusahaan</th>
                 <th>Status</th>
               </thead>
@@ -54,7 +54,7 @@
                   <tr>
                     <td>{{$data->nis}}</td>
                     <td>{{$data->nama}}</td>
-                    <td>{{$data->jurusan}}</td>
+                    <td>{{$data->rayon}}</td>
                     <td>{{$data->perusahaan}}</td>
                     <td>{{$data->status_perusahaan}}</td>
                   </tr>
