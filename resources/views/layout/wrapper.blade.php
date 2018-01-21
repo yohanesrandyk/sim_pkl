@@ -71,7 +71,7 @@
 
 
         </script>
-        @if(Auth::user()->status==3)
+        <!-- @if(Auth::user()->status==3)
         <script type="text/javascript">
             $(document).ready(function(){
                 setInterval(function(){
@@ -79,7 +79,7 @@
                 },360000);
             });
         </script>
-        @endif
+        @endif -->
 {{Session::flash('route_last', Request::path())}}
 <a href="{{ url('check_absen') }}" id="check_absen" style="display:none"></a>
   </body>

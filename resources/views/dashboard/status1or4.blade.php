@@ -13,7 +13,7 @@
                 <label class="col-sm-2 col-sm-2 control-label">Area PKL *</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="area" required="">
-                    	<option value="" selected="">Pilih Kota</option>
+                    	<option value="" selected="">Pilih Area</option>
                     	<option value="1">Bogor</option>
                     	<option value="2">Jabodetabek</option>
                     	<option value="3">Luar Jabodetabek</option>

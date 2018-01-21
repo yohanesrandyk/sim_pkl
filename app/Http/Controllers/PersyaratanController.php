@@ -10,6 +10,7 @@ use App\Siswa;
 use App\Rayon;
 use App\Jurusan;
 use App\Pembimbing;
+use App\Kaprog;
 
 class siswaObj{
   public $nis, $nama, $rayon, $jurusan, $bantara, $nilai, $keuangan, $kesiswaaan, $cbt_prod, $kehadiran_pengayaan, $ujikom, $perpus;
@@ -37,6 +38,9 @@ class PersyaratanController extends Controller
         if(Auth::user()->id_role==4){
             $id_rayon = Pembimbing::where("id", Auth::user()->id)->first()->id_rayon;
             $get_siswa = Siswa::where("id_rayon", $id_rayon)->get();
+        }elseif(Auth::user()->id_role==2){
+            $id_jurusan = Kaprog::where("id", Auth::user()->id)->first()->id_jurusan;
+            $get_siswa = Siswa::where("id_jurusan", $id_jurusan)->get();
         }else{
             $get_siswa = Siswa::all();
         }
@@ -64,9 +68,23 @@ class PersyaratanController extends Controller
       return view("persyaratan.index",compact("siswa"));
     }
     public function store(Request $req){
-      Persyaratan::where("nis", $req->nis)->update([
-        $req->field => 1
-      ]);
+        $field = $req->field;
+        $cek = Persyaratan::where("nis", $req->nis)->first()->$field;
+        if ($cek > 0) {
+            Persyaratan::where("nis", $req->nis)->update([
+                $field => 0
+            ]);
+            $siswa = Siswa::where("nis", $req->nis)->first();
+            if ($siswa->id_area < 1) {
+                User::where('id', $siswa->id)->update(["status" => 1]);   
+            }else{
+                User::where('id', $siswa->id)->update(["status" => 2]);
+            }
+        }else{
+            Persyaratan::where("nis", $req->nis)->update([
+                $field => 1
+            ]);
+        }
         $persyaratan = Persyaratan::where([
             ["nis", $req->nis],
             ["nilai", 1],
@@ -78,7 +96,7 @@ class PersyaratanController extends Controller
             ["lulus_ujikelayakan", 1],
             ["perpustakaan", 1],
         ])->first();
-        if (count($persyaratan)>0) {
+        if (count($persyaratan) > 0) {
             $id = Siswa::where("nis", $req->nis)->first()->id; 
             $status = User::where('id', $id)->first()->status;
             if ($status == 1) {

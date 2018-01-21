@@ -1,6 +1,6 @@
 @extends('layout.wrapper')
 @section('content')
     <div class="col-lg-12">
-      Dashboard belum memenuhi syarat tapi sudah pilih kota
+      Dashboard memenuhi syarat dan sudah memiliki tempat pkl
     </div>
 @endsection

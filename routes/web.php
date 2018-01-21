@@ -249,28 +249,28 @@ Route::post('penempatan/add/{id}', 'PenempatanController@store');
 //Siswa
 
 Route::get('jurnal', function(){
-  if(Auth::user()->status == 3){
+  if(Auth::user()->status == 5){
     return (new JurnalController)->index();
   }else{
     return view('404');
   }
 });
 Route::get('jurnal/add', function(){
-  if(Auth::user()->status == 3){
+  if(Auth::user()->status == 5){
     return (new JurnalController)->create();
   }else{
     return view('404');
   }
 });
 Route::get('kehadiran', function(){
-  if(Auth::user()->status == 3){
+  if(Auth::user()->status == 5){
     return (new KehadiranController)->index();
   }else{
     return view('404');
   }
 });
 Route::get('kehadiran/add', function(){
-  if(Auth::user()->status == 3){
+  if(Auth::user()->status == 5){
     return (new KehadiranController)->create();
   }else{
     return view('404');

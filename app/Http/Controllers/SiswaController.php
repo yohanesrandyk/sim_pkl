@@ -11,6 +11,8 @@ use App\Rayon;
 use App\Jurusan;
 use App\Rombel;
 use App\Persyaratan;
+use App\Kaprog;
+use App\Pembimbing;
 
 class siswaObj{
   public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod, $id;
@@ -34,7 +36,15 @@ class SiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $get_siswa = Siswa::all();
+        if (Auth::user()->id_role==2) {
+          $jurusan = Kaprog::where('id', Auth::user()->id)->first()->id_jurusan;
+          $get_siswa = Siswa::where('id_jurusan', $jurusan)->get();
+        }else if (Auth::user()->id_role==4) {
+          $rayon = Pembimbing::where('id', Auth::user()->id)->first()->id_rayon;
+          $get_siswa = Siswa::where('id_rayon', $rayon)->get();
+        }else{
+          $get_siswa = Siswa::all();
+        }
         $siswa = [];
         $x = 1;
         foreach ($get_siswa as $data) {
@@ -66,7 +76,8 @@ class SiswaController extends Controller
         'username' => 'required|string|max:255|unique:users',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
-        'nis' => 'required|min:8|unique:siswa'
+        'nis' => 'required|min:8|max:8|unique:siswa',
+        'telp' => 'required|max:14'
       ]);
       User::create([
         "id_role" => "3",

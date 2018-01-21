@@ -49,6 +49,7 @@ class UserController extends Controller
         'username' => 'required|string|max:255|unique:users',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
+        'telp' => 'required|max:14'
       ]);
       User::create([
         "id_role" => $req->role,

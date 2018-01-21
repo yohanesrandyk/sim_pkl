@@ -43,7 +43,7 @@ class JurnalController extends Controller
     }
     public function store(Request $req){
       Jurnal::create([
-        "id" => "2",
+        "id" => Auth::user()->id,
         "divisi" => $req->divisi,
         "mulai" => $req->mulai,
         "selesai" => $req->selesai,

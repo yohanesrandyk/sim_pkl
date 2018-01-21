@@ -38,6 +38,9 @@
                 <a href="{{url('referensi')}}"><i class="fa fa-tags"></i><span class="nav-label">Referensi Siswa</span></a>
             </li>
             <li>
+                <a href="{{url('bidangperusahaan')}}"><i class="fa fa-building-o"></i><span class="nav-label">Bidang Perusahaan</span></a>
+            </li>
+            <li>
                 <a href="{{url('perusahaan')}}"><i class="fa fa-building-o"></i><span class="nav-label">Perusahaan</span></a>
             </li>
             <li>
@@ -64,7 +67,7 @@
                 <a href="{{url('siswa')}}"><i class="fa fa-male"></i><span class="nav-label">Siswa</span></a>
             </li>
             @endif
-            @if (Auth::user()->status == 3)
+            @if (Auth::user()->status == 5)
             <li>
                 <a href="{{url('kehadiran')}}"><i class="fa fa-edit"></i><span class="nav-label">Kehadiran</span><span class="label label-info pull-right">@if (isset($SessionVar[0])){{$SessionVar[0]}}@endif</span></a>
             </li>
