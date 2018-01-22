@@ -26,7 +26,7 @@
               </tbody>
             </table>
           </div>
-          <a href="user/add" class="btn btn-primary">Add</a>
+          <a href="user/add" class="btn btn-primary" style="margin-bottom:20px;margin-top: -25px; ">Add</a>
         </div>
       </div>
     </div>

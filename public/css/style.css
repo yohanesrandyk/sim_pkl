@@ -6,6 +6,9 @@
  *   version 2.7
  *
 */
+i{
+
+}
 h1,
 h2,
 h3,
@@ -620,10 +623,11 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   }
 }
 .btn {
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .float-e-margins .btn {
   margin-bottom: 5px;
+  border-radius: 4px;
 }
 .btn-w-m {
   min-width: 120px;
@@ -654,6 +658,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   background-color: #1ab394;
   border-color: #1ab394;
   color: #FFFFFF;
+  width: 155px;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -3139,8 +3144,11 @@ a.forum-item-title:hover {
 }
 /* Payments */
 .payment-card {
-  background: #ffffff;
+  background: rgba(255, 255,255, 0.5);
   padding: 20px;
+  padding-top: 10px;
+  margin-top: 15px;
+  border-radius: 4px;
   margin-bottom: 25px;
   border: 1px solid #e7eaec;
 }
@@ -3902,6 +3910,8 @@ code {
   margin-bottom: 25px;
   margin-top: 0;
   padding: 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 10px 1px grey;
 }
 .ibox.collapsed .ibox-content {
   display: none;
@@ -3927,6 +3937,7 @@ code {
   border-style: solid solid none;
   border-width: 2px 0 0;
   color: inherit;
+  font-size: 20px;
   margin-bottom: 0;
   padding: 15px 15px 7px;
   min-height: 48px;
@@ -3934,7 +3945,7 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 15px 20px 20px 20px;
+  padding: 30px 20px 0px 20px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;

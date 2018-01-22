@@ -25,7 +25,7 @@
                 <a href="{{url('perusahaan')}}"><i class="fa fa-building-o"></i><span class="nav-label">Perusahaan</span></a>
             </li>
             <li>
-                <a href=""><i class="fa fa-envelope-o"></i> <span class="nav-label">Surat</span><span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-envelope-o"></i><span class="nav-label">Surat</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="suratpermohonan">Surat Permohonan</a></li>
                     <li><a href="suratpengantar">Surat Pengantar</a></li>

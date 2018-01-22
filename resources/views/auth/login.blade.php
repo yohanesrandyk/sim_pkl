@@ -27,16 +27,14 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg" style="background-image: src()">
 
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
+        <div class="payment-card">
             <div>
-
-                <h1 class="logo-name">SP</h1>
-
+                <h1 class="logo-name" style="color: #18a689!important;">SP</h1>
             </div>
-            <p>Login in. To see it in action.</p>
+            <p>Login untuk memulai pekerjaan Anda.</p>
             <form class="m-t" role="form" action="{{ route('login') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
@@ -50,11 +48,10 @@
                 </div> --}}
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-                <a href="{{ route('password.request') }}"><small>Forgot password?</small></a>
                 {{-- <p class="text-muted text-center"><small>Do not have an account?</small></p>
                 <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a> --}}
             </form>
-            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+            <p class="m-t"> <small>Aplikasi penghubung PKL &copy; 2018</small> </p>
         </div>
     </div>
 
