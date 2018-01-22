@@ -13,14 +13,23 @@
                 <th>Email</th>
                 <th>Telepon</th>
                 <th>Alamat</th>
+                <th>Role</th>
               </thead>
               <tbody>
                 @foreach ($user as $data)
-                  <tr>
+                  <tr onclick="document.getElementById('{{$data->id}}').click();">
+                    <a id="{{$data->id}}" href="user/e/{{$data->id}}" style="display:none"></a>
                     <td>{{$data->nama}}</td>
                     <td>{{$data->email}}</td>
                     <td>{{$data->telp}}</td>
                     <td>{{$data->alamat}}</td>
+                    <td>
+                      @foreach($role as $d_role)
+                        @if($data->id_role == $d_role->id_role)
+                          {{$d_role->role}}
+                        @endif
+                      @endforeach
+                    </td>
                   </tr>
                 @endforeach
               </tbody>

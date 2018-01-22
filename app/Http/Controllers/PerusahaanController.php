@@ -52,6 +52,7 @@ class PerusahaanController extends Controller
         $data->website = $request->website;
         $data->email = $request->email;
         $data->status = $request->status;
+        $data->id_area = 1;
         $data->save();
         Session::flash('message', 'Data Berhasil Disimpan'); 
         Session::flash('alert-class', 'alert-success'); 

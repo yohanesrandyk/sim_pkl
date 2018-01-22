@@ -26,7 +26,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Keterangan</label>
                 <div class="col-sm-10">
-                    <textarea name="ket" class="form-control"></textarea>
+                    <select name="ket" class="form-control">
+                        <option disabled selected>Pilih Keterangan</option>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Sakit">Sakit</option>
+                        <option value="Izin">Izin</option>
+                        <option value="Alpa">Alpa</option>
+                    </select>
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" name="submit" value="Save">

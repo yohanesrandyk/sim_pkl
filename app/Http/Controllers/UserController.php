@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Role;
+use App\Rayon;
+use App\Jurusan;
+use App\Pembimbing;
+use App\Kaprog;
 
 // class siswaObj{
 //   public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod;
@@ -29,29 +34,46 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $user = User::all();
-        return view("user.index",compact("user"));
+        $user = User::where("id_role", "<>", 3)->get();
+        $role = Role::all();
+        return view("user.index",compact("user", "role"));
     }
     public function create(){
-      return view("user.add");
+      $role = Role::all();
+      $jurusan = Jurusan::all();
+      $rayon = Rayon::all();
+      return view("user.add", compact("role", "jurusan", "rayon"));
     }
     public function store(Request $req){
       $this->validate($req, [
         'username' => 'required|string|max:255|unique:users',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
+        'telp' => 'required|max:14'
       ]);
       User::create([
-        "id_role" => "1",
-        "username" => $req->nama,
+        "id_role" => $req->role,
+        "username" => $req->username,
         "password" => bcrypt($req->password),
         "nama" => $req->nama,
         "email" => $req->email,
         "telp" => $req->telp,
         "bod" => $req->bod,
         "bop" => $req->bop,
-        "alamat" => $req->alamat
+        "alamat" => $req->alamat,
       ]);
+      $id = User::orderBy("created_at", "desc")->first()->id;
+      if ($req->role==2) {
+        Kaprog::create([
+          "id" => $id,
+          "id_jurusan" => $req->jurusan
+        ]);
+      }else if($req->role==4){
+        Pembimbing::create([
+          "id" => $id,
+          "id_rayon" => $req->rayon
+        ]);
+      };
       return redirect("user");
     }
     public function edit($id){

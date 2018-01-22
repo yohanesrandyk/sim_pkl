@@ -52,7 +52,8 @@
                   @elseif($r->status==1)
                     <?php $status="Terverifikasi"?>
                   @endif
-                  <tr>
+                  <tr onclick="document.getElementById('{{$r->id_perusahaan}}').click();">
+                    <a id="{{$r->id_perusahaan}}" href="perusahaan/e/{{$r->id_perusahaan}}" style="display:none"></a>
                         <td>{{$no++}}</td>
                         <td>{{$r->perusahaan." [ ".$r->getBidang->bidangperusahaan." ] "}}</td>
                         <td>{{$r->alamat.', '.$r->kota.', '.$r->kode_pos}}</td>
@@ -68,6 +69,7 @@
                 </tbody>
               </table>
             </div>
+            <a href="perusahaan/add" class="btn btn-primary">Add</a>
           </div>
       </div>
     </div>

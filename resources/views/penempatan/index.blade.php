@@ -10,7 +10,7 @@
             <table class="table table-striped table-bordered table-hover dataTables-example" >
               <thead>
                 <th>Nama Perusahaan</th>
-                <th>Kota</th>
+                <th>Area Perusahaan</th>
                 <th>Telpon</th>
                 <th>Email</th>
                 <th>Siswa Terverifikasi</th>
@@ -21,7 +21,7 @@
                   <tr onclick="document.getElementById('{{$data->id_perusahaan}}').click();">
                     <a id="{{$data->id_perusahaan}}" href="penempatan/add/{{$data->id_perusahaan}}" style="display:none"></a>
                     <td>{{$data->perusahaan}}</td>
-                    <td>{{$data->kota}}</td>
+                    <td>{{$data->area}}</td>
                     <td>{{$data->telp}}</td>
                     <td>{{$data->email}}</td>
                     <td>{{$data->jumlah_verified}}</td>
@@ -45,7 +45,8 @@
               <thead>
                 <th>NIS</th>
                 <th>Nama</th>
-                <th>Jurusan</th>
+                <th>Rayon</th>
+                <th>Area PKL</th>
                 <th>Perusahaan</th>
                 <th>Status</th>
               </thead>
@@ -54,7 +55,8 @@
                   <tr>
                     <td>{{$data->nis}}</td>
                     <td>{{$data->nama}}</td>
-                    <td>{{$data->jurusan}}</td>
+                    <td>{{$data->rayon}}</td>
+                    <td>{{$data->area}}</td>
                     <td>{{$data->perusahaan}}</td>
                     <td>{{$data->status_perusahaan}}</td>
                   </tr>

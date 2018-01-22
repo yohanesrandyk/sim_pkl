@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Siswa;
+use App\Rayon;
+use App\Jurusan;
+use App\Rombel;
+use App\Persyaratan;
+use App\Kaprog;
+use App\Pembimbing;
 
 class siswaObj{
-  public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod;
+  public $nis, $nama, $rayon, $jurusan, $rombel, $jk, $email, $telp, $alamat, $agama, $bop, $bod, $id;
 }
 
 class SiswaController extends Controller
@@ -24,32 +30,21 @@ class SiswaController extends Controller
         $this->middleware('auth');
     }
 
-    public function write(){
-      $siswa = [];
-      $x = 1;
-      foreach ($get_siswa as $data) {
-         $obj = new siswaObj();
-         $user = User::where("id", $data->id)->first();
-         $obj->nis = $data->nis;
-         $obj->nama = $user->nama;
-         $obj->rayon = $data->id_rayon;
-         $obj->jurusan = $data->id_jurusan;
-         $obj->rombel = $data->id_rombel;
-         $obj->jk = $data->jk;
-         $obj->email = $user->email;
-         $obj->telp = $user->telp;
-         $obj->alamat = $user->alamat;
-         $siswa[$x] = $obj;
-         $x++;
-      }
-    }
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $get_siswa = Siswa::all();
+        if (Auth::user()->id_role==2) {
+          $jurusan = Kaprog::where('id', Auth::user()->id)->first()->id_jurusan;
+          $get_siswa = Siswa::where('id_jurusan', $jurusan)->get();
+        }else if (Auth::user()->id_role==4) {
+          $rayon = Pembimbing::where('id', Auth::user()->id)->first()->id_rayon;
+          $get_siswa = Siswa::where('id_rayon', $rayon)->get();
+        }else{
+          $get_siswa = Siswa::all();
+        }
         $siswa = [];
         $x = 1;
         foreach ($get_siswa as $data) {
@@ -57,27 +52,32 @@ class SiswaController extends Controller
            $user = User::where("id", $data->id)->first();
            $obj->nis = $data->nis;
            $obj->nama = $user->nama;
-           $obj->rayon = $data->id_rayon;
-           $obj->jurusan = $data->id_jurusan;
-           $obj->rombel = $data->id_rombel;
+           $obj->rayon = Rayon::where("id_rayon", $data->id_rayon)->first()->rayon;
+           $obj->jurusan = Jurusan::where("id_jurusan", $data->id_jurusan)->first()->jurusan;
+           $obj->rombel = Rombel::where("id_rombel", $data->id_rombel)->first()->rombel;
            $obj->jk = $data->jk;
            $obj->email = $user->email;
            $obj->telp = $user->telp;
            $obj->alamat = $user->alamat;
+           $obj->id = $data->id;
            $siswa[$x] = $obj;
            $x++;
         }
         return view("siswa.index",compact("siswa"));
     }
     public function create(){
-      return view("siswa.add");
+      $rayon = Rayon::all();
+      $jurusan = Jurusan::all();
+      $rombel = Rombel::all();
+      return view("siswa.add", compact("rayon", "jurusan", "rombel"));
     }
     public function store(Request $req){
       $this->validate($req, [
         'username' => 'required|string|max:255|unique:users',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
-        'nis' => 'required|min:8|unique:siswa'
+        'nis' => 'required|min:8|max:8|unique:siswa',
+        'telp' => 'required|max:14'
       ]);
       User::create([
         "id_role" => "3",
@@ -98,8 +98,14 @@ class SiswaController extends Controller
       Siswa::create([
         "nis" => $req->nis,
         "id" => $last_user->id,
+        "id_rayon" => $req->rayon,
+        "id_jurusan" => $req->jurusan,
+        "id_rombel" => $req->rombel,
         "agama" => $req->agama,
         "jk" => $req->jk
+      ]);
+      Persyaratan::create([
+        "nis" => $req->nis
       ]);
       return redirect("siswa");
     }

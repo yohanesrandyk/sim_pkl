@@ -29,12 +29,12 @@ class KehadiranController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index(){
-        $kehadiran = Kehadiran::all();
-        $today = count(Kehadiran::where('created_at', 'like' , '%'.date("Y-m-d").'%')->get());
+        $kehadiran = Kehadiran::where('id', Auth::user()->id)->get();
+        $today = count(Kehadiran::where([['created_at', 'like' , '%'.date("Y-m-d").'%'], ['id', Auth::user()->id]])->get());
         return view("kehadiran.index", ["kehadiran"=>$kehadiran, "today" => $today]);
     }
     public function create(){
-      $today = count(Kehadiran::where('created_at', 'like' , '%'.date("Y-m-d").'%')->get());
+      $today = count(Kehadiran::where([['created_at', 'like' , '%'.date("Y-m-d").'%'], ['id', Auth::user()->id]])->get());
       if ($today > 0) {
         return redirect('kehadiran');
       }else{
@@ -43,7 +43,7 @@ class KehadiranController extends Controller
     }
     public function store(Request $req){
       Kehadiran::create([
-        "id" => Auth::user()->id_role,
+        "id" => Auth::user()->id,
         "divisi" => $req->divisi,
         "datang" => $req->datang,
         "pulang" => $req->pulang,

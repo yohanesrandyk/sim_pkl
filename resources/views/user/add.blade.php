@@ -16,6 +16,10 @@
       <div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
       {{ $errors->first('password_confirmation') }}</div>
      @endif
+     @if ($errors->has('telp'))
+      <div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+      {{ $errors->first('telp') }}</div>
+    @endif
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -52,6 +56,59 @@
                 <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
                 <div class="col-sm-10">
                   <textarea name="alamat" class="form-control">{{ old('alamat') }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Role *</label>
+                <div class="col-sm-10">
+                    <select class="select2 form-control" name="role" required="" onchange="
+                      if(this.value == 2){
+                        $('#jurusan').prop('disabled', false);
+                        $('#rayon').prop('disabled', true);
+                        $('#rayon').prop('required', false);
+                        $('#jurusan').prop('required', true);
+                      }else if(this.value == 4){
+                        $('#rayon').prop('disabled', false);
+                        $('#jurusan').prop('disabled', true);
+                        $('#rayon').prop('required', true);
+                        $('#jurusan').prop('required', false);
+                      }else{
+                        $('#rayon').prop('disabled', true);
+                        $('#jurusan').prop('disabled', true);
+                        $('#rayon').prop('required', false);
+                        $('#jurusan').prop('required', false);
+                      }
+                    ">
+                      <option value="" selected="">Pilih Role</option>
+                      @foreach($role as $data)
+                        @if($data->id_role==3)
+                        @else
+                        <option value="{{$data->id_role}}" @if($data->id_role==old('role')) selected @endif>{{$data->role}}</option>
+                        @endif
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Jurusan</label>
+                <div class="col-sm-10">
+                    <select class="select2 form-control" name="jurusan" id="jurusan" disabled="">
+                      <option value="" selected="">Pilih Jurusan</option>
+                      @foreach($jurusan as $data)
+                        <option value="{{$data->id_jurusan}}" @if($data->id_jurusan==old('jurusan')) selected @endif>{{$data->jurusan}}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Rayon</label>
+                <div class="col-sm-10">
+                    <select class="select2 form-control" name="rayon" id="rayon" disabled="">
+                      <option value="" selected="">Pilih Rayon</option>
+                      @foreach($rayon as $data)
+                        <option value="{{$data->id_rayon}}" @if($data->id_rayon==old('rayon')) selected @endif>{{$data->rayon}}</option>
+                      @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group">

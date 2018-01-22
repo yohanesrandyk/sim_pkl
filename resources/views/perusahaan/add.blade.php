@@ -28,7 +28,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Bidang *</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="id_bidang">
+                    <select class="select2 form-control" name="id_bidang">
                         @foreach($data_bidang as $r)
                             <option value="{{$r->id_bidang}}">{{$r->bidangperusahaan}}</option>
                         @endforeach
@@ -45,6 +45,17 @@
                 <label class="col-sm-2 col-sm-2 control-label">Kota *</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="kota" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Area *</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="id_area">
+                        <option value="" selected="">Pilih Area</option>
+                        <option value="1">Bogor</option>
+                        <option value="2">Jabodetabek</option>
+                        <option value="3">Luar Jabodetabek</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -80,7 +91,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Status *</label>
                 <div class="col-sm-10">
-                  <select class="select2 form-control" name="status">
+                  <select class="form-control" name="status">
                       <option value="0">Pengajuan</option>
                       <option value="1">Terverifikasi</option>
                   </select>
